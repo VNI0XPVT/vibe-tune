@@ -20,7 +20,7 @@ const Sidebar = (props: Props) => {
                         key={link.name}
                         className={cn(
                             'flex py-1.5 px-5 rounded-full items-center gap-2 text-muted-foreground transition  font-medium',
-                            'hover:bg-muted/75 ',
+                            'hover:bg-muted/50 ',
                             pathname === link.href && 'text-primary bg-muted hover:bg-muted'
                         )}
                     >
