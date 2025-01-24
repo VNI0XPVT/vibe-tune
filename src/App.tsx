@@ -1,7 +1,8 @@
+import DashboardLayout from "./layout/dashboard-layout";
 import LandingPage from "./pages/landing";
 
 function App() {
-  return <LandingPage />;
+  return <DashboardLayout />;
 }
 
 export default App;
