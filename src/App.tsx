@@ -11,6 +11,7 @@ function App() {
 
                 <Route element={<DashboardLayout />}>
                     <Route path="/home" element={<Home />} />
+                    <Route path="/player" element={<Home />} />
                 </Route>
             </Routes>
         </BrowserRouter>

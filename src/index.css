@@ -37,8 +37,8 @@
     .dark {
         --background: 0 0% 0%;
         --foreground: 0 0% 96%;
-        --card: 0 0% 6%;
-        --card-foreground: 0 0% 94%;
+        --card: 0 0% 8%;
+        --card-foreground: 0 0% 92%;
         --popover: 0 0% 6%;
         --popover-foreground: 0 0% 98%;
         --primary: 0 0% 98%;
@@ -69,6 +69,7 @@
     body {
         @apply bg-background text-foreground;
         font-family: 'Open Sans', serif;
+        font-weight: 500;
         /* font-family: "Delius Swash Caps", serif; */
     }
 
@@ -96,6 +97,6 @@
     }
 
     .bg-gradient {
-        @apply bg-gradient-to-t  from-neutral-800/50 to-neutral-950 border border-neutral-800/50;
+        @apply bg-gradient-to-t  from-neutral-800/60 to-neutral-950 border border-neutral-800/60;
     }
 }

@@ -19,7 +19,7 @@ export function BottomNav() {
                     >
                         <link.icons className="size-5" />
 
-                        <span className="text-xs mt-1">{link.name}</span>
+                        <span className="text-xs mt-1 font-semibold">{link.name}</span>
                     </Link>
                 ))}
             </div>

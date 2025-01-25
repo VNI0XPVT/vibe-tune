@@ -1,8 +1,7 @@
-import { Card } from '../components/ui/card';
-import { ScrollArea, ScrollBar } from '../components/ui/scroll-area';
-import artists from '../data/artists';
 import songs from '../data/songs';
+import artists from '../data/artists';
 import { getAlbums } from '../utils/song';
+import { Card } from '../components/ui/card';
 
 type Props = {};
 export interface Artwork {
@@ -26,7 +25,7 @@ export const works: Artwork[] = [
 
 const Home = (props: Props) => {
     return (
-        <div className="space-y-6 pb-16">
+        <div className="space-y-6">
             <h2 className="text-2xl md:hidden md:text-3xl font-bold text-foreground/90">
                 Good Afternoon <span className="text-gradient">User</span>
             </h2>
@@ -43,7 +42,7 @@ const Home = (props: Props) => {
                                 alt={artist.name}
                             />
 
-                            <h4 className="mt-2 font-medium text-sm  text-ellipsis line-clamp-1">{artist.name}</h4>
+                            <h4 className="mt-2  text-sm  text-ellipsis line-clamp-1">{artist.name}</h4>
                             <p className="text-xs text-muted-foreground">Artist</p>
                         </div>
                     ))}
@@ -64,9 +63,7 @@ const Home = (props: Props) => {
                                     alt={album.name}
                                 />
 
-                                <h4 className="mt-3 font-medium text-sm max-w-[6rem] text-ellipsis line-clamp-1">
-                                    {album.name}
-                                </h4>
+                                <h4 className="mt-3  text-sm max-w-[6rem] text-ellipsis line-clamp-1">{album.name}</h4>
                                 <p className="text-xs text-muted-foreground">{album.songs} songs</p>
                             </div>
                         ))}
@@ -82,7 +79,7 @@ const Home = (props: Props) => {
                             <img src={song.image} className="rounded-full size-10" />
 
                             <div>
-                                <h3 className="font-medium text-primary/90 line-clamp-1 text-ellipsis">{song.name}</h3>
+                                <h3 className=" text-primary/90 line-clamp-1 text-ellipsis">{song.name}</h3>
                                 <p className="text-xs text-muted-foreground line-clamp-1 text-ellipsis">
                                     {song.album.name} - {song.artists[0].name}
                                 </p>
