@@ -10,7 +10,7 @@ const DashboardLayout = () => {
             <Sidebar />
             <main className="flex-1 relative max-md:h-[calc(100dvh-4rem)]">
                 <ScrollArea className="h-full ">
-                    <div className="max-w-6xl mx-auto p-2.5 md:p-8 !pb-20">
+                    <div className="max-w-6xl mx-auto p-2.5 md:p-4 !pb-20">
                         <Outlet />
                     </div>
                 </ScrollArea>

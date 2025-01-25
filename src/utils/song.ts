@@ -15,4 +15,6 @@ const getAlbums = () => {
         .value();
 };
 
-export { getAlbums };
+const albums = getAlbums();
+
+export { albums, getAlbums };

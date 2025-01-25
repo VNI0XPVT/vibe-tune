@@ -9,7 +9,7 @@ const MiniPlayer = (props: Props) => {
 
     return (
         <div className="absolute -bottom-0 w-full z-10 p-2 ">
-            <Card className="p-1.5 max-w-[calc(72rem-4rem)] overflow-hidden mx-auto  rounded-md md:rounded-lg relative grid grid-cols-[3rem_1fr_2rem] items-center gap-3 shadow-lg bg-card/75 backdrop-blur-md">
+            <Card className="p-1.5 max-w-[calc(72rem-2rem)] overflow-hidden mx-auto  rounded-md md:rounded-lg relative grid grid-cols-[3rem_1fr_2rem] items-center gap-3 shadow-lg bg-card/75 backdrop-blur-md">
                 <img src={song.image} alt="" className="rounded-lg border " />
 
                 <div className="flex flex-col justify-evenly h-full">
