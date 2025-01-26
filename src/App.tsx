@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import SearchPage from './pages/search';
 import Albums from './pages/albums';
 import Album from './pages/album';
+import Player from './pages/player';
 
 function App() {
     return (
@@ -14,10 +15,12 @@ function App() {
 
                 <Route element={<DashboardLayout />}>
                     <Route path="home" element={<Home />} />
-                    <Route path="player" element={<Home />} />
                     <Route path="search" element={<SearchPage />} />
                     <Route path="albums" element={<Albums />}/>
                     <Route path="albums/:id" element={<Album />} />
+                    
+                    <Route path="player" element={<Player />}/>
+
 
                 </Route>
             </Routes>
