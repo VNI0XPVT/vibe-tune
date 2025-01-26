@@ -7,6 +7,8 @@ import { Heart, PlayCircle, PlayIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import SongCard from '../components/song/song-card';
 import { formatDuration } from '../lib/utils';
+import SongList from '../components/song/song-list';
+import AartistCard from '../components/song/artist-card';
 
 type Props = {};
 
@@ -14,7 +16,10 @@ const Album = (props: Props) => {
     const { id } = useParams();
     const album = searchAlbumById(id as string);
 
+    if (!album) return <div>Album not found</div>;
+
     console.log(album);
+
     return (
         <div className="space-y-10">
             {/* <h2 className="text-2xl font-semibold text-center">Explore Album</h2> */}
@@ -24,12 +29,16 @@ const Album = (props: Props) => {
                 <div className="space-y-2">
                     <h1 className="text-2xl md:text-3xl font-semibold">{album.name}</h1>
                     <p className="text-sm text-muted-foreground">
-                        {album.songs.length} songs - {album.duration} minutes
+                        {album.songs.length} songs - {formatDuration(album.duration)} - {album.language}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                        <b>Artists:</b> {album.artists[0]?.map((artist, index) => artist.name).join(', ')}
+                        <b>Release:</b> {album.releaseDate}
                     </p>
-                    <Button className=" !mt-14">
+                    <p className="text-sm text-muted-foreground">
+                        {' '}
+                        <b>Artists:</b> {album.artists.slice(0,5).map(a => a.name).join(', ')}
+                    </p>
+                    <Button className=" !mt-10">
                         <PlayIcon /> Play All
                     </Button>
                 </div>
@@ -39,28 +48,41 @@ const Album = (props: Props) => {
                 <CardHeader>
                     <CardTitle>Songs</CardTitle>
                     <CardDescription>
-                        {album.songs.length} songs - {album.duration} minutes
+                        {album.songs.length} songs - {formatDuration(album.duration)} minutes
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-1.5">
+                <CardContent className="space-y-2">
                     {album.songs.map((song, i) => (
-                        <div className="grid group grid-cols-[1.25rem_1fr_1.5rem_2rem] items-center md:grid-cols-[1.5rem_1fr_1fr_1.5rem_2rem] gap-1.5 md:gap-3 text-sm p-2.5 rounded-md text-muted-foreground [&>*]:bg-green-500/0 hover:bg-muted">
-                            <p className="opacity-80">
-                                <span className="group-hover:hidden">{i + 1}</span>
-                                <span className="hidden group-hover:inline">
-                                    <PlayCircle className="size-4 md:size-5" />
-                                </span>
-                            </p>
-                            <p className="max-md:text-sm font-semibold text-foreground/90">{song.name}</p>
-                            <p className="max-md:hidden text-xs">{song.artists.map(a => a.name).join(', ')}</p>
-                            <p>
-                                <Heart className="size-4" />
-                            </p>
-                            <p className='max-md:text-xs'>{formatDuration(song.duration)}</p>
-                        </div>
+                        <SongList song={song} number={i +1} />
                     ))}
                 </CardContent>
             </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle>Artists</CardTitle>
+                    <CardDescription>{album.artists.length} artists</CardDescription>
+                </CardHeader>
+                <CardContent className="grid grid-cols-3 md:grid-cols-7 justify-between gap-4 md:gap-8">
+                    {album.artists.map((artist) => (
+                        <AartistCard key={artist.id} artist={artist}  />
+                    ))}
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle>Related Albums</CardTitle>
+                    {/* <CardDescription>{album.artists.length} artists</CardDescription> */}
+                </CardHeader>
+                <CardContent className='grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-5'>
+                  {
+                    albums.slice(0, 6).map((album, index) => (
+                        <AlbumCard key={index} album={album} />
+                    ))
+                  }
+                </CardContent>
+                </Card>
 
             {/* <div className='mt-12 grid grid-cols-6 md:gap-5'>
             {
