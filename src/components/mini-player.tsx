@@ -1,15 +1,26 @@
-import { Play } from 'lucide-react';
-import songs from '../data/songs';
-import { Card } from './ui/card';
+import { cn } from '../lib/utils';
+import { Pause, Play } from 'lucide-react';
+import { Link, useLocation } from 'react-router';
+import { useMusicPlayerContext } from '../context/audio-provider';
 
 type Props = {};
 
 const MiniPlayer = (props: Props) => {
-    const song = songs[0];
+    const { pathname } = useLocation();
+    
+    const { playerState, togglePlayPause } = useMusicPlayerContext();
+    const { currentSong: song } = playerState;
+
+    if (!song) return <></>;
+
+    
 
     return (
-        <div className="absolute -bottom-0 w-full z-10 p-2 ">
-            <Card className="p-1.5 max-w-[calc(72rem-2rem)] overflow-hidden mx-auto  rounded-md md:rounded-lg relative grid grid-cols-[3rem_1fr_2rem] items-center gap-3 shadow-lg bg-card/75 backdrop-blur-md">
+        <div className={cn(
+            "absolute -bottom-0 w-full z-10 p-2 ",
+            pathname === '/player' && 'hidden'
+        )}>
+            <Link to={'/player'} className="p-1.5 max-w-[calc(72rem-2rem)] overflow-hidden mx-auto  rounded-md md:rounded-lg relative grid grid-cols-[3rem_1fr_2rem] items-center gap-3 shadow-lg bg-card/75 backdrop-blur-md">
                 <img src={song.image} alt="" className="rounded-lg border " />
 
                 <div className="flex flex-col justify-evenly h-full">
@@ -19,13 +30,13 @@ const MiniPlayer = (props: Props) => {
                     </p>
                 </div>
 
-                <Play className="size-6" />
+                <button onClick={togglePlayPause} >{playerState.isPlaying ? <Pause className="size-6" /> : <Play className="size-6" />}</button>
 
                 <div
                     className="absolute left-0 bottom-0 h-0.5 bg-primary"
-                    style={{ width: `${(100 / 300) * 100}%` }}
+                    style={{ width: `${(playerState.progress / song.duration) * 100}%` }}
                 ></div>
-            </Card>
+            </Link>
         </div>
     );
 };

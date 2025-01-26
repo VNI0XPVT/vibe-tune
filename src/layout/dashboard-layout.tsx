@@ -14,7 +14,7 @@ const DashboardLayout = () => {
                         <Outlet />
                     </div>
                 </ScrollArea>
-                {/* <MiniPlayer /> */}
+                <MiniPlayer />
             </main>
             <BottomNav />
         </div>
