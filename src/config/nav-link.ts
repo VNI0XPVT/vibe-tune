@@ -13,7 +13,7 @@ const NavLinks = [
     },
     {
         name: 'Albums',
-        href: '/album',
+        href: '/albums',
         icons: Library,
     },
     {

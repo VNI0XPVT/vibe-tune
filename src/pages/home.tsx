@@ -43,9 +43,9 @@ const Home = (props: Props) => {
                     <CardDescription>Discover the most popular albums</CardDescription>
                 </CardHeader>
 
-                <CardContent className="grid grid-cols-3 gap-2 md:grid-cols-8 place-items-center">
+                <CardContent className="grid grid-cols-3 gap-2 md:gap-5 md:grid-cols-7 place-items-center">
                     {getAlbums()
-                        .slice(0, windowWidth < 768 ? 3 * 3 : 4 * 2)
+                        .slice(0, windowWidth < 768 ? 3 * 3 : 7)
                         .map(album => (
                             <AlbumCard key={album.id} album={album} />
                         ))}

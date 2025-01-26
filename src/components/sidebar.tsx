@@ -9,7 +9,7 @@ const Sidebar = (props: Props) => {
     const { pathname } = useLocation();
     return (
         <div className="w-64 max-md:hidden h-screen bg-card p-4">
-            <h2 className="font-bold text-center">
+            <h2 className="font-semibold text-center">
                 <span className="text-gradient text-2xl">Music Player</span>
             </h2>
 
