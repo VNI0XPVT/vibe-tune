@@ -1,6 +1,15 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import songs from '../data/songs';
-import { HeartIcon, PauseIcon, PlayIcon, RepeatIcon, ShuffleIcon, SkipBack, SkipForward } from 'lucide-react';
+import {
+    HeartIcon,
+    LoaderCircleIcon,
+    PauseIcon,
+    PlayIcon,
+    RepeatIcon,
+    ShuffleIcon,
+    SkipBack,
+    SkipForward,
+} from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Slider } from '../components/ui/slider';
 import { searchAlbumById } from '../utils/song';
@@ -19,7 +28,6 @@ const Player = (props: Props) => {
     const album = searchAlbumById(song?.album.id);
 
     if (!album) return <p></p>;
-
 
     return (
         <div className="space-y-6 md:space-y-10">
@@ -67,18 +75,26 @@ const Player = (props: Props) => {
                                 <SkipBack className="size-5" />
                             </Button>
 
-                            <Button
-                                size={'icon'}
-                                variant={'default'}
-                                onClick={togglePlayPause}
-                                className="rounded-full p-5"
-                            >
-                                {playerState.isPlaying ? (
-                                    <PauseIcon className="md:size-6 " />
-                                ) : (
-                                    <PlayIcon className="md:size-6 " />
-                                )}
-                            </Button>
+                            {playerState.isReady && (
+                                <Button
+                                    size={'icon'}
+                                    variant={'default'}
+                                    onClick={togglePlayPause}
+                                    className="rounded-full p-5"
+                                >
+                                    {playerState.isPlaying ? (
+                                        <PauseIcon className="md:size-6 " />
+                                    ) : (
+                                        <PlayIcon className="md:size-6 " />
+                                    )}
+                                </Button>
+                            )}
+
+                            {!playerState.isReady && (
+                                <Button size={'icon'} variant={'default'} className="rounded-full p-5" disabled>
+                                    <LoaderCircleIcon className="animate-spin" />
+                                </Button>
+                            )}
 
                             <Button size={'icon'} variant={'ghost'} onClick={playNext}>
                                 <SkipForward className="size-5" />

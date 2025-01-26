@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useCallback } from 'react';
 import useMusicPlayer from '../hooks/use-music-player';
 
 type MusicPlayerContextType = ReturnType<typeof useMusicPlayer>;
@@ -8,25 +8,46 @@ const MusicPlayerContext = createContext<MusicPlayerContextType | null>(null);
 export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const musicPlayer = useMusicPlayer();
 
+    const updateProgress = useCallback(() => {
+        const audio = musicPlayer.audioRef.current;
+        if (audio && musicPlayer.playerState.currentSong) {
+            musicPlayer.setPlayerState(prev => ({ ...prev, progress: audio.currentTime }));
+        }
+    }, [musicPlayer]);
+
+    const handleReadyStateChange = useCallback(() => {
+        const audio = musicPlayer.audioRef.current;
+
+        if (audio) {
+            musicPlayer.setPlayerState(prev => ({
+                ...prev,
+                isReady: audio.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA,
+            }));
+        }
+    }, [musicPlayer]);
+
     useEffect(() => {
         const audio = musicPlayer.audioRef.current;
-        const updateProgress = () => {
-            if (audio && musicPlayer.playerState.currentSong) {
-                const progress = audio.currentTime;
-                musicPlayer.setPlayerState(prev => ({ ...prev, progress }));
-            }
-        };
+        if (!audio) return;
 
-        audio?.addEventListener('timeupdate', updateProgress);
-        audio?.addEventListener('ended', musicPlayer.playNext);
-        audio?.addEventListener('canplay ', musicPlayer.handleReadyState);
-        audio?.addEventListener('canplaythrough', musicPlayer.handleReadyState);
+        const eventListeners: { event: keyof HTMLMediaElementEventMap; handler: () => void }[] = [
+            { event: 'timeupdate', handler: updateProgress },
+            { event: 'ended', handler: musicPlayer.playNext },
+            { event: 'canplay', handler: handleReadyStateChange },
+            { event: 'canplaythrough', handler: handleReadyStateChange },
+            { event: 'loadedmetadata', handler: handleReadyStateChange },
+            { event: 'waiting', handler: handleReadyStateChange },
+            { event: 'stalled', handler: handleReadyStateChange },
+        ];
+
+        eventListeners.forEach(({ event, handler }) => {
+            audio.addEventListener(event, handler);
+        });
 
         return () => {
-            audio?.removeEventListener('timeupdate', updateProgress);
-            audio?.removeEventListener('ended', musicPlayer.playNext);
-            audio?.removeEventListener('canplay', musicPlayer.handleReadyState);
-            audio?.removeEventListener('canplaythrough', musicPlayer.handleReadyState);
+            eventListeners.forEach(({ event, handler }) => {
+                audio.removeEventListener(event, handler);
+            });
         };
     }, []);
 
@@ -40,6 +61,10 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
 export const useMusicPlayerContext = () => {
     const context = useContext(MusicPlayerContext);
-    if (!context) throw new Error('useMusicPlayerContext must be used within AudioProvider');
+    if (!context) {
+        throw new Error('useMusicPlayerContext must be used within AudioProvider');
+    }
     return context;
 };
+
+export default AudioProvider;
