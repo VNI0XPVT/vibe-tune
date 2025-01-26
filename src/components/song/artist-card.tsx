@@ -13,7 +13,7 @@ const AartistCard = ({ artist }: Props) => {
                 alt={artist.name}
             />
 
-            <h4 className="mt-2  text-sm  text-ellipsis line-clamp-1">{artist.name}</h4>
+            <h4 className="mt-2 text-sm text-ellipsis line-clamp-1">{artist.name}</h4>
             <p className="text-xs text-muted-foreground">Artist</p>
         </div>
     );

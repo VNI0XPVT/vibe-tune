@@ -24,7 +24,7 @@ const SongList = ({ song, number, showAlbum=false, showImage=true }: Props) => {
 
             <p className="flex-1 max-md:text-sm font-semibold text-foreground/90">{song.name}</p>
             <p className="flex-1 max-md:hidden text-xs">{song.artists.map(a => a.name).join(', ')}</p>
-            <p>
+            <p className='w-5'>
                 <Heart className="size-4" />
             </p>
             <p className="max-md:text-xs">{formatDuration(song.duration)}</p>

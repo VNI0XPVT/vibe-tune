@@ -63,7 +63,7 @@ const Album = (props: Props) => {
                     <CardTitle>Artists</CardTitle>
                     <CardDescription>{album.artists.length} artists</CardDescription>
                 </CardHeader>
-                <CardContent className="grid grid-cols-3 md:grid-cols-7 justify-between gap-4 md:gap-8">
+                <CardContent className="grid grid-cols-4 md:grid-cols-7 justify-between gap-4 md:gap-8">
                     {album.artists.map((artist) => (
                         <AartistCard key={artist.id} artist={artist}  />
                     ))}
