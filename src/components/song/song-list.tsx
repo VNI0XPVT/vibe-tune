@@ -10,13 +10,17 @@ type Props = {
 };
 
 const SongList = ({ song, number, showAlbum = false }: Props) => {
-    const { playSong } = useMusicPlayerContext();
+    const {
+        playSong,
+        playerState: { currentSong },
+    } = useMusicPlayerContext();
 
     return (
         <div
             className={cn(
                 'flex justify-between gap-2 md:gap-6 group',
-                'text-sm p-2 rounded-md text-muted-foreground hover:bg-muted'
+                'text-sm p-2 rounded-md text-muted-foreground hover:bg-muted',
+                // currentSong?.id === song.id && 'bg-muted'
             )}
             onClick={() => playSong(song)}
         >
