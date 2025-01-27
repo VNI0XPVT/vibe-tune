@@ -71,7 +71,7 @@ const Player = (props: Props) => {
                     <div className="flex justify-between items-center gap-6">
                         <ShuffleIcon className="size-4 text-muted-foreground" />
                         <div className="flex items-center justify-center gap-8">
-                            <Button size={'icon'} variant={'ghost'}>
+                            <Button size={'icon'} variant={'ghost'} onClick={playPrevious}>
                                 <SkipBack className="size-5" />
                             </Button>
 

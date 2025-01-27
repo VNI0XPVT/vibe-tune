@@ -10,7 +10,6 @@ type PlayerState = {
     isReady: boolean;
     volume: typeof HTMLMediaElement.prototype.volume;
     progress: typeof HTMLMediaElement.prototype.currentTime;
-    readyState: typeof HTMLMediaElement.prototype.readyState;
 
     playlist: Song[];
     currentSong: Song | null;
@@ -26,7 +25,6 @@ const useMusicPlayer = () => {
         isReady: false,
         playlist: songs.slice(0, 20),
         currentSong: songs[5],
-        readyState: 0,
     });
 
     const audioRef = useRef<HTMLAudioElement>(new Audio());
@@ -95,10 +93,10 @@ const useMusicPlayer = () => {
     };
 
     const handleReadyState = () => {
-        if (!audioRef.current) return;        
+        if (!audioRef.current) return;
         setPlayerState(prev => ({ ...prev, readyState: audioRef.current.readyState }));
         if (audioRef.current.readyState >= 2) setPlayerState(prev => ({ ...prev, isReady: true }));
-    }
+    };
 
     return {
         playerState,

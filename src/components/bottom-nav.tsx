@@ -6,7 +6,7 @@ export function BottomNav() {
     const { pathname } = useLocation();
 
     return (
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card">
+        <nav className="md:hidden  bg-card">
             <div className="flex justify-around py-3">
                 {NavLinks.map(link => (
                     <Link

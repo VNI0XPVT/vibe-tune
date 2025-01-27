@@ -6,7 +6,7 @@ import MiniPlayer from '../components/mini-player';
 
 const DashboardLayout = () => {
     return (
-        <div className="h-dvh overflow-hidden flex">
+        <div className="h-dvh overflow-hidden flex flex-col md:flex-row">
             <Sidebar />
             <main className="flex-1 relative max-md:h-[calc(100dvh-4rem)]">
                 <ScrollArea className="h-full ">
@@ -20,19 +20,5 @@ const DashboardLayout = () => {
         </div>
     );
 };
-
-// const DashboardLayout = (props: Props) => {
-//     return (
-//         <div className="h-screen overflow-hidden flex">
-//             <Sidebar />
-//             <ScrollArea className="flex-1 relative p-4 md:p-8 w-full overflow-y-auto">
-//                 <div className="max-w-5xl mx-auto">
-//                     <Outlet />
-//                 </div>
-//             </ScrollArea>
-//             <BottomNav />
-//         </div>
-//     );
-// };
 
 export default DashboardLayout;
