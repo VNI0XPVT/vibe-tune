@@ -1,6 +1,6 @@
 import { Search } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import songs from '../data/songs';
+import songs from '../data/songs-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import SongCard from '../components/song/song-card';
 import SearchBar from '../components/search-bar';

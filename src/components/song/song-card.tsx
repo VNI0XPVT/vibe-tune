@@ -1,5 +1,5 @@
 import React from 'react';
-import songs from '../../data/songs';
+import songs from '../../data/songs-data';
 
 type Props = {
     song: (typeof songs)[number];

@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import songs from '../data/songs';
+import songsData from '../data/songs-data';
 
-const getAlbums = () => {
- 
-    return _.chain(songs)
+const findAlbums = () => {
+    const albums = _.chain(songsData)
         .groupBy('album.id')
         .map((songs, album) => ({
             id: album,
@@ -12,18 +11,18 @@ const getAlbums = () => {
             songs: songs.length,
         }))
         .filter(album => album.songs > 1)
-        .sortBy('songs', 'desc')
+        .orderBy('songs', 'desc')
         .value();
 
+    return albums;
 };
 
-
-const searchAlbumById = (id: string) => {
-    const albumSong = _.find(songs, song => song.album.id === id);
+const findAlbumById = (id: string) => {
+    const albumSong = _.find(songsData, song => song.album.id === id);
     if (!albumSong) return null;
-    
-    const albumSongs = _.filter(songs, song => song.album.id === id);
-    
+
+    const albumSongs = _.filter(songsData, song => song.album.id === id);
+
     return {
         id: albumSong.album.id,
         name: albumSong.album.name,
@@ -37,6 +36,11 @@ const searchAlbumById = (id: string) => {
     };
 };
 
-const albums = getAlbums();
+const findSongs = (count = 50) => {
+    return _.sampleSize(songsData, count);
+};
 
-export { albums, getAlbums, searchAlbumById };
+const albums = findAlbums();
+const songs = findSongs();
+
+export { albums, songs, findAlbums, findSongs, findAlbumById };

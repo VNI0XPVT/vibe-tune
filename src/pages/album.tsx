@@ -1,5 +1,5 @@
 import React from 'react';
-import { albums, searchAlbumById } from '../utils/song';
+import { albums, findAlbumById } from '../utils/song';
 import AlbumCard from '../components/song/album-card';
 import { useParams } from 'react-router';
 import { Button } from '../components/ui/button';
@@ -9,16 +9,16 @@ import SongCard from '../components/song/song-card';
 import { formatDuration } from '../lib/utils';
 import SongList from '../components/song/song-list';
 import AartistCard from '../components/song/artist-card';
+import { useMusicPlayerContext } from '../context/audio-provider';
 
 type Props = {};
 
 const Album = (props: Props) => {
     const { id } = useParams();
-    const album = searchAlbumById(id as string);
+    const { addToPlaylist } = useMusicPlayerContext();
+    const album = findAlbumById(id!);
 
     if (!album) return <div>Album not found</div>;
-
-    console.log(album);
 
     return (
         <div className="space-y-10">
@@ -35,10 +35,13 @@ const Album = (props: Props) => {
                         <b>Release:</b> {album.releaseDate}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                        {' '}
-                        <b>Artists:</b> {album.artists.slice(0,5).map(a => a.name).join(', ')}
+                        <b>Artists:</b>
+                        {album.artists
+                            .slice(0, 5)
+                            .map(a => a.name)
+                            .join(', ')}
                     </p>
-                    <Button className=" !mt-10">
+                    <Button className=" !mt-10" onClick={() => addToPlaylist(album.songs)}>
                         <PlayIcon /> Play All
                     </Button>
                 </div>
@@ -53,7 +56,7 @@ const Album = (props: Props) => {
                 </CardHeader>
                 <CardContent className="space-y-2">
                     {album.songs.map((song, i) => (
-                        <SongList song={song} number={i +1} />
+                        <SongList song={song} number={i + 1} />
                     ))}
                 </CardContent>
             </Card>
@@ -64,8 +67,8 @@ const Album = (props: Props) => {
                     <CardDescription>{album.artists.length} artists</CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-4 md:grid-cols-7 justify-between gap-4 md:gap-8">
-                    {album.artists.map((artist) => (
-                        <AartistCard key={artist.id} artist={artist}  />
+                    {album.artists.map(artist => (
+                        <AartistCard key={artist.id} artist={artist} />
                     ))}
                 </CardContent>
             </Card>
@@ -75,14 +78,12 @@ const Album = (props: Props) => {
                     <CardTitle>Related Albums</CardTitle>
                     {/* <CardDescription>{album.artists.length} artists</CardDescription> */}
                 </CardHeader>
-                <CardContent className='grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-5'>
-                  {
-                    albums.slice(0, 6).map((album, index) => (
+                <CardContent className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-5">
+                    {albums.slice(0, 6).map((album, index) => (
                         <AlbumCard key={index} album={album} />
-                    ))
-                  }
+                    ))}
                 </CardContent>
-                </Card>
+            </Card>
 
             {/* <div className='mt-12 grid grid-cols-6 md:gap-5'>
             {

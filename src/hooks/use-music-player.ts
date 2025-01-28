@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import songs from '../data/songs';
 import { getRandomIndex } from '../lib/utils';
+import { songs } from '../utils/song';
+import toast from 'react-hot-toast';
 
 type Song = (typeof songs)[number];
 
@@ -22,8 +23,8 @@ const defaultPlayerState: PlayerState = {
     isRepeat: false,
     progress: 0,
     isReady: false,
-    playlist: songs.slice(0, 20),
-    currentSong: songs[getRandomIndex(0, 20)],
+    playlist: songs,
+    currentSong: songs[0],
 };
 
 const useMusicPlayer = () => {
@@ -34,19 +35,11 @@ const useMusicPlayer = () => {
     const updateState = (updates: Partial<PlayerState>) => setState(prev => ({ ...prev, ...updates }));
 
     useEffect(() => {
-        if (state.currentSong && state.isPlaying) {
-            audio.src = state.currentSong.src;
-            audio.play().catch(() => {
-                console.error('Failed to play audio');
-                updateState({ isPlaying: false });
-            });
-        } else {
-            audio.pause();
-        }
+        if (state.isPlaying) audio.play();
+        else audio.pause();
     }, [state.currentSong, state.isPlaying]);
 
     const togglePlayPause = () => {
-        if (!state.currentSong) return;
         updateState({ isPlaying: !state.isPlaying });
     };
 
@@ -78,11 +71,14 @@ const useMusicPlayer = () => {
     };
 
     const addToPlaylist = (songs: Song[], replace = true) => {
+        toast.success(`${songs.length} songs added to playlist`);
+
         setState(prev => ({
             ...prev,
             playlist: replace ? songs : [...prev.playlist, ...songs],
-            currentSong: prev.playlist.length === 0 ? songs[0] : prev.currentSong,
         }));
+
+        if (replace) playSong(songs[0]);
     };
 
     return {

@@ -1,4 +1,4 @@
-import { Heart, Home, Library, Search } from 'lucide-react';
+import { Heart, Home, Library, Search, ListMusicIcon } from 'lucide-react';
 
 const NavLinks = [
     {
@@ -16,10 +16,15 @@ const NavLinks = [
         href: '/albums',
         icons: Library,
     },
+    // {
+    //     name: 'Favorites',
+    //     href: '/favorites',
+    //     icons: Heart,
+    // },
     {
-        name: 'Favorites',
-        href: '/favorites',
-        icons: Heart,
+        name: 'Queue',
+        href: '/queue',
+        icons: ListMusicIcon,
     },
 ];
 

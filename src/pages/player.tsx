@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Slider } from '../components/ui/slider';
-import { searchAlbumById } from '../utils/song';
+import { findAlbumById } from '../utils/song';
 import SongList from '../components/song/song-list';
 import { formatDuration } from '../lib/utils';
 import AartistCard from '../components/song/artist-card';
@@ -24,8 +24,9 @@ const Player = (props: Props) => {
     const { currentSong: song } = playerState;
 
     if (!song) return <p></p>;
-    const album = searchAlbumById(song?.album.id);
+    const album = findAlbumById(song?.album.id);
 
+    // console.log(playerState);
     if (!album) return <p></p>;
 
     return (
@@ -111,7 +112,7 @@ const Player = (props: Props) => {
                 </CardHeader>
                 <CardContent className="space-y-2">
                     {album.songs.map((song, i) => (
-                        <SongList song={song} number={i + 1} />
+                        <SongList song={song} key={song.id} number={i + 1} />
                     ))}
                 </CardContent>
             </Card>

@@ -1,6 +1,6 @@
-import songs from '../data/songs';
+import songs from '../data/songs-data';
 import artists from '../data/artists';
-import { getAlbums } from '../utils/song';
+import { albums, findSongs } from '../utils/song';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import SongCard from '../components/song/song-card';
 import AlbumCard from '../components/song/album-card';
@@ -44,11 +44,9 @@ const Home = (props: Props) => {
                 </CardHeader>
 
                 <CardContent className="grid grid-cols-3 gap-2 md:gap-5 md:grid-cols-7 place-items-center">
-                    {getAlbums()
-                        .slice(0, windowWidth < 768 ? 3 * 3 : 7)
-                        .map(album => (
-                            <AlbumCard key={album.id} album={album} />
-                        ))}
+                    {albums.slice(0, windowWidth < 768 ? 3 * 3 : 7).map(album => (
+                        <AlbumCard key={album.id} album={album} />
+                    ))}
                 </CardContent>
             </Card>
 
@@ -58,7 +56,7 @@ const Home = (props: Props) => {
                     <CardDescription>Discover the most popular songs</CardDescription>
                 </CardHeader>
                 <CardContent className="grid md:grid-cols-3 gap-x-6 gap-3 gap-y-2 md:gap-y-3">
-                    {songs.slice(0, 3 * 5).map(song => (
+                    {findSongs(15).map(song => (
                         <SongCard key={song.id} song={song} />
                     ))}
                 </CardContent>

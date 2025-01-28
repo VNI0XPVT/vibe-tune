@@ -20,6 +20,8 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         updatePlayerState({ progress: e.currentTarget.currentTime });
     };
 
+    const handlePause = () => updatePlayerState({ isPlaying: false });
+
     const handleOnEnded = () => {
         if (playerState.isRepeat) musicPlayer.playSong(playerState.currentSong!);
         else musicPlayer.playNext();
@@ -33,6 +35,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 className="hidden"
                 ref={audioRef}
                 src={playerState.currentSong.src}
+                // onPause={handlePause}
                 onEnded={handleOnEnded}
                 onTimeUpdate={handleTimeUpdate}
                 onCanPlay={handleReadyState}
@@ -41,6 +44,8 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 onWaiting={handleReadyState}
                 onStalled={handleReadyState}
                 onLoadedData={handleReadyState}
+                onEmptied={handleReadyState}
+                onAbort={handleReadyState}
             />
         );
     }, [playerState.currentSong, audioRef, handleOnEnded, handleTimeUpdate, handleReadyState]);
