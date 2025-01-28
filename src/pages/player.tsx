@@ -2,8 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import {
     HeartIcon,
     LoaderCircleIcon,
+    MinusCircle,
     PauseIcon,
     PlayIcon,
+    PlusCircle,
     RepeatIcon,
     ShuffleIcon,
     SkipBack,
@@ -20,14 +22,25 @@ import { useMusicPlayerContext } from '../context/audio-provider';
 type Props = {};
 
 const Player = (props: Props) => {
-    const { playerState, handleSeek, togglePlayPause, playNext, playPrevious } = useMusicPlayerContext();
-    const { currentSong: song } = playerState;
+    const {
+        playerState,
+        handleSeek,
+        togglePlayPause,
+        playNext,
+        playPrevious,
+        toggleRepeat,
+        toggleShuffle,
+        addToPlaylist,
+        removeFromPlaylist,
+    } = useMusicPlayerContext();
+    const { currentSong: song, playlist } = playerState;
 
     if (!song) return <p></p>;
     const album = findAlbumById(song?.album.id);
 
-    // console.log(playerState);
     if (!album) return <p></p>;
+
+    const isInPlaylist = playlist.some(s => s.id === song.id);
 
     return (
         <div className="space-y-6 md:space-y-10">
@@ -51,7 +64,22 @@ const Player = (props: Props) => {
                             </p>
                         </div>
 
-                        <HeartIcon className="size-6" />
+                        {/* <HeartIcon className="size-6" /> */}
+
+                        <div
+                            role="button"
+                            onClick={e => {
+                                if (isInPlaylist) removeFromPlaylist(song);
+                                else addToPlaylist([song]);
+                                e.stopPropagation();
+                            }}
+                        >
+                            {isInPlaylist ? (
+                                <MinusCircle className="size-6  text-red-500" />
+                            ) : (
+                                <PlusCircle className="size-6   text-green-500" />
+                            )}
+                        </div>
                     </div>
 
                     <div>

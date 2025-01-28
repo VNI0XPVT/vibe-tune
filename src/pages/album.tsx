@@ -22,7 +22,6 @@ const Album = (props: Props) => {
 
     return (
         <div className="space-y-10">
-            {/* <h2 className="text-2xl font-semibold text-center">Explore Album</h2> */}
             <Card className="flex flex-col md:flex-row md:justify-start mt-10 gap-5 md:gap-8 md:items-center p-5">
                 <img className="w-full md:size-52 rounded-lg border shadow-md" src={album.image} alt={album.name} />
 
@@ -35,7 +34,7 @@ const Album = (props: Props) => {
                         <b>Release:</b> {album.releaseDate}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                        <b>Artists:</b>
+                        <b>Artists: </b>
                         {album.artists
                             .slice(0, 5)
                             .map(a => a.name)

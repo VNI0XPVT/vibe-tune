@@ -22,7 +22,7 @@ const NavLinks = [
     //     icons: Heart,
     // },
     {
-        name: 'Queue',
+        name: 'Playlist',
         href: '/queue',
         icons: ListMusicIcon,
     },

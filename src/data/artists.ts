@@ -1,6 +1,6 @@
 const artists = [
     {
-        id: 1,
+        id: 459320,
         name: 'Arijit Singh',
         image: 'https://c.saavncdn.com/artists/Arijit_Singh_004_20241118063717_500x500.jpg',
     },

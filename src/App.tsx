@@ -6,6 +6,7 @@ import SearchPage from './pages/search';
 import Albums from './pages/albums';
 import Album from './pages/album';
 import Player from './pages/player';
+import QueuePage from './pages/queue';
 
 function App() {
     return (
@@ -16,12 +17,12 @@ function App() {
                 <Route element={<DashboardLayout />}>
                     <Route path="home" element={<Home />} />
                     <Route path="search" element={<SearchPage />} />
-                    <Route path="albums" element={<Albums />}/>
+                    <Route path="albums" element={<Albums />} />
                     <Route path="albums/:id" element={<Album />} />
-                    
-                    <Route path="player" element={<Player />}/>
 
+                    <Route path="queue" element={<QueuePage />} />
 
+                    <Route path="player" element={<Player />} />
                 </Route>
             </Routes>
         </BrowserRouter>
