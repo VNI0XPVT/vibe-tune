@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import SongCard from '../components/song/song-card';
 import AlbumCard from '../components/song/album-card';
 import { useWindowSize } from 'react-use';
+import SongList from '../components/song/song-list';
 
 type Props = {};
 const Home = (props: Props) => {
@@ -55,9 +56,9 @@ const Home = (props: Props) => {
                     <CardTitle>Top Songs</CardTitle>
                     <CardDescription>Discover the most popular songs</CardDescription>
                 </CardHeader>
-                <CardContent className="grid md:grid-cols-3 gap-x-6 gap-3 gap-y-2 md:gap-y-3">
+                <CardContent className="grid md:grid-cols-1 gap-x-6 gap-y-1">
                     {findSongs(15).map(song => (
-                        <SongCard key={song.id} song={song} />
+                        <SongList key={song.id} song={song} showAlbum={true} />
                     ))}
                 </CardContent>
             </Card>

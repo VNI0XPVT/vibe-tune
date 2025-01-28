@@ -41,7 +41,7 @@ const Album = (props: Props) => {
                             .map(a => a.name)
                             .join(', ')}
                     </p>
-                    <Button className=" !mt-10" onClick={() => addToPlaylist(album.songs)}>
+                    <Button className=" !mt-10" onClick={() => addToPlaylist(album.songs, true)}>
                         <PlayIcon /> Play All
                     </Button>
                 </div>

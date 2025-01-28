@@ -70,7 +70,7 @@ const useMusicPlayer = () => {
         playSong(state.playlist[prevIndex]);
     };
 
-    const addToPlaylist = (songs: Song[], replace = true) => {
+    const addToPlaylist = (songs: Song[], replace = false) => {
         toast.success(`${songs.length} songs added to playlist`);
 
         setState(prev => ({
@@ -79,6 +79,12 @@ const useMusicPlayer = () => {
         }));
 
         if (replace) playSong(songs[0]);
+    };
+
+    const removeFromPlaylist = (song: Song) => {
+        const updatedPlaylist = state.playlist.filter(s => s.id !== song.id);
+        toast.success('Song removed from playlist');
+        setState(prev => ({ ...prev, playlist: updatedPlaylist }));
     };
 
     return {
@@ -93,6 +99,7 @@ const useMusicPlayer = () => {
         playNext,
         playPrevious,
         addToPlaylist,
+        removeFromPlaylist,
     };
 };
 
