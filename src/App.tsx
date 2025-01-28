@@ -7,7 +7,7 @@ import Albums from './pages/albums';
 import Album from './pages/album';
 import Player from './pages/player';
 import QueuePage from './pages/queue';
-import ScrollToTop from './components/scroll-top-top';
+import ArtistPage from './pages/artist';
 
 function App() {
     return (
@@ -19,6 +19,7 @@ function App() {
                 <Route element={<DashboardLayout />}>
                     <Route path="home" element={<Home />} />
                     <Route path="search" element={<SearchPage />} />
+                    <Route path="artists/:id" element={<ArtistPage />} />
                     <Route path="albums" element={<Albums />} />
                     <Route path="albums/:id" element={<Album />} />
 

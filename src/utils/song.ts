@@ -40,7 +40,27 @@ const findSongs = (count = 25) => {
     return _.sampleSize(songsData, count);
 };
 
+const findArtistById = (id: string) => {
+    const artist = songsData
+        .find(song => song.artists.some(artist => artist.id === id))
+        ?.artists.find(artist => artist.id === id);
+
+    if (!artist) return null;
+
+    const artistSongs = _.filter(songsData, song => _.find(song.artists, { id }));
+
+    return {
+        id: artist.id,
+        name: artist.name,
+        image: artist.image,
+        duration: _.sumBy(artistSongs, 'duration'),
+        albums: _.uniqBy(_.flatMap(artistSongs, 'album'), 'id'),
+        languages: _.uniq(_.map(artistSongs, 'language')),
+        songs: artistSongs,
+    };
+};
+
 const albums = findAlbums();
 const songs = findSongs();
 
-export { albums, songs, findAlbums, findSongs, findAlbumById };
+export { albums, songs, findAlbums, findSongs, findAlbumById, findArtistById };
