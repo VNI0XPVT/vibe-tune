@@ -1,59 +1,53 @@
-import React, { createContext, useContext, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useMemo, useCallback } from 'react';
 import useMusicPlayer from '../hooks/use-music-player';
 
 type MusicPlayerContextType = ReturnType<typeof useMusicPlayer>;
+type AudioEvent = React.SyntheticEvent<HTMLAudioElement, Event>;
 
 const MusicPlayerContext = createContext<MusicPlayerContextType | null>(null);
 
 export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const musicPlayer = useMusicPlayer();
+    const { updatePlayerState, playerState, audioRef } = musicPlayer;
 
-    const updateProgress = useCallback(() => {
-        const audio = musicPlayer.audioRef.current;
-        if (audio && musicPlayer.playerState.currentSong) {
-            musicPlayer.setPlayerState(prev => ({ ...prev, progress: audio.currentTime }));
-        }
-    }, [musicPlayer]);
+    const contextValue = useMemo(() => musicPlayer, [musicPlayer]);
 
-    const handleReadyStateChange = useCallback(() => {
-        const audio = musicPlayer.audioRef.current;
+    const handleReadyState = (e: AudioEvent) => {
+        updatePlayerState({ isReady: e.currentTarget.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA });
+    };
 
-        if (audio) {
-            musicPlayer.setPlayerState(prev => ({
-                ...prev,
-                isReady: audio.readyState >= HTMLMediaElement.HAVE_ENOUGH_DATA,
-            }));
-        }
-    }, [musicPlayer]);
+    const handleTimeUpdate = (e: AudioEvent) => {
+        updatePlayerState({ progress: e.currentTarget.currentTime });
+    };
 
-    useEffect(() => {
-        const audio = musicPlayer.audioRef.current;
-        if (!audio) return;
+    const handleOnEnded = () => {
+        if (playerState.isRepeat) musicPlayer.playSong(playerState.currentSong!);
+        else musicPlayer.playNext();
+    };
 
-        const eventListeners: { event: keyof HTMLMediaElementEventMap; handler: () => void }[] = [
-            { event: 'timeupdate', handler: updateProgress },
-            { event: 'ended', handler: musicPlayer.playNext },
-            { event: 'canplay', handler: handleReadyStateChange },
-            { event: 'canplaythrough', handler: handleReadyStateChange },
-            { event: 'loadedmetadata', handler: handleReadyStateChange },
-            { event: 'waiting', handler: handleReadyStateChange },
-            { event: 'stalled', handler: handleReadyStateChange },
-        ];
+    const audioElement = useMemo(() => {
+        if (!playerState.currentSong) return null;
 
-        eventListeners.forEach(({ event, handler }) => {
-            audio.addEventListener(event, handler);
-        });
-
-        return () => {
-            eventListeners.forEach(({ event, handler }) => {
-                audio.removeEventListener(event, handler);
-            });
-        };
-    }, []);
+        return (
+            <audio
+                className="hidden"
+                ref={audioRef}
+                src={playerState.currentSong.src}
+                onEnded={handleOnEnded}
+                onTimeUpdate={handleTimeUpdate}
+                onCanPlay={handleReadyState}
+                onCanPlayThrough={handleReadyState}
+                onLoadedMetadata={handleReadyState}
+                onWaiting={handleReadyState}
+                onStalled={handleReadyState}
+                onLoadedData={handleReadyState}
+            />
+        );
+    }, [playerState.currentSong, audioRef, handleOnEnded, handleTimeUpdate, handleReadyState]);
 
     return (
-        <MusicPlayerContext.Provider value={musicPlayer}>
-            <audio className="hidden" ref={musicPlayer.audioRef} />
+        <MusicPlayerContext.Provider value={contextValue}>
+            {audioElement}
             {children}
         </MusicPlayerContext.Provider>
     );

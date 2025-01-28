@@ -1,6 +1,7 @@
 import { cn } from '../lib/utils';
-import { LoaderCircleIcon, Pause, Play } from 'lucide-react';
+import Marquee from 'react-fast-marquee';
 import { Link, useLocation } from 'react-router';
+import { LoaderCircleIcon, Pause, Play } from 'lucide-react';
 import { useMusicPlayerContext } from '../context/audio-provider';
 
 type Props = {};
@@ -22,10 +23,13 @@ const MiniPlayer = (props: Props) => {
                 <img src={song.image} alt="" className="rounded-lg border " />
 
                 <div className="flex flex-col justify-evenly h-full">
-                    <h4 className="md:text-lg">{song.name}</h4>
+                    <h4 className="md:text-lg line-clamp-1 text-ellipsis">{song.name}</h4>
+
+                    {/* <Marquee gradient={true} gradientColor="red" gradientWidth={10}> */}
                     <p className="text-xs text-muted-foreground line-clamp-1 text-ellipsis">
                         {song.album.name} - {song.artists[0].name}
                     </p>
+                    {/* </Marquee> */}
                 </div>
 
                 {playerState.isReady && (

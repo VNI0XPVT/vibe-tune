@@ -1,5 +1,4 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import songs from '../data/songs';
 import {
     HeartIcon,
     LoaderCircleIcon,

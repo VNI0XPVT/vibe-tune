@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import songs from '../data/songs';
+import { getRandomIndex } from '../lib/utils';
 
 type Song = (typeof songs)[number];
 
@@ -15,63 +16,70 @@ type PlayerState = {
     currentSong: Song | null;
 };
 
+const defaultPlayerState: PlayerState = {
+    isPlaying: false,
+    volume: 1,
+    isShuffle: false,
+    isRepeat: false,
+    progress: 0,
+    isReady: false,
+    playlist: songs.slice(0, 20),
+    currentSong: songs[getRandomIndex(0, 20)],
+};
+
 const useMusicPlayer = () => {
-    const [playerState, setPlayerState] = useState<PlayerState>({
-        isPlaying: false,
-        volume: 0.5,
-        isShuffle: false,
-        isRepeat: false,
-        progress: 0,
-        isReady: false,
-        playlist: songs.slice(0, 20),
-        currentSong: songs[5],
-    });
+    const [state, setState] = useState<PlayerState>(defaultPlayerState);
 
     const audioRef = useRef<HTMLAudioElement>(new Audio());
+    const audio = audioRef.current;
+
+    const updateState = (updates: Partial<PlayerState>) => setState(prev => ({ ...prev, ...updates }));
 
     useEffect(() => {
-        if (!playerState.currentSong) return;
-        audioRef.current.src = playerState.currentSong.src;
-        if (playerState.isPlaying) audioRef.current.play();
-    }, [playerState.currentSong]);
+        if (state.isPlaying) audio.play();
+    }, [state.currentSong]);
 
-    const togglePlayPause = () => {
-        if (!playerState.currentSong) return;
+    const playbackControls = {
+        togglePlayPause: () => {
+            if (!state.currentSong) return;
+            state.isPlaying ? audio.pause() : audio.play();
+            updateState({ isPlaying: !state.isPlaying });
+        },
 
-        if (playerState.isPlaying) audioRef.current.pause();
-        else audioRef.current.play();
-        setPlayerState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
-    };
+        playSong: (song: Song) => {
+            updateState({ currentSong: song, progress: 0, isPlaying: true });
+        },
 
-    const playSong = (song: Song) => {
-        setPlayerState(prev => ({
-            ...prev,
-            currentSong: song,
-            progress: 0,
-            isPlaying: true,
-        }));
-    };
+        toggleShuffle: () => updateState({ isShuffle: !state.isShuffle }),
+        toggleRepeat: () => updateState({ isRepeat: !state.isRepeat }),
+        handleSeek: (value: number) => {
+            if (!audioRef.current) return;
+            audioRef.current.currentTime = value;
+            updateState({ progress: value });
+        },
 
-    const playNext = () => {
-        if (!playerState.currentSong) return;
+        playNext: () => {
+            if (!state.currentSong || !state.playlist.length) return;
+            const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong?.id);
 
-        const currentIndex = playerState.playlist.findIndex(song => song.id === playerState.currentSong!.id);
+            const nextIndex = state.isShuffle
+                ? getRandomIndex(currentIndex, state.playlist.length)
+                : (currentIndex + 1) % state.playlist.length;
 
-        const nextIndex = (currentIndex + 1) % playerState.playlist.length;
-        setPlayerState(prev => ({
-            ...prev,
-            currentSong: prev.playlist[nextIndex],
-            progress: 0,
-        }));
+            updateState({
+                currentSong: state.playlist[nextIndex],
+                progress: 0,
+            });
+        },
     };
 
     const playPrevious = () => {
-        if (!playerState.currentSong) return;
+        if (!state.currentSong) return;
 
-        const currentIndex = playerState.playlist.findIndex(song => song.id === playerState.currentSong!.id);
+        const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong!.id);
 
-        const prevIndex = (currentIndex - 1 + playerState.playlist.length) % playerState.playlist.length;
-        setPlayerState(prev => ({
+        const prevIndex = (currentIndex - 1 + state.playlist.length) % state.playlist.length;
+        setState(prev => ({
             ...prev,
             currentSong: prev.playlist[prevIndex],
             progress: 0,
@@ -79,36 +87,22 @@ const useMusicPlayer = () => {
     };
 
     const addToPlaylist = (songs: Song[], replace = true) => {
-        setPlayerState(prev => ({
+        setState(prev => ({
             ...prev,
             playlist: replace ? songs : [...prev.playlist, ...songs],
             currentSong: prev.playlist.length === 0 ? songs[0] : prev.currentSong,
         }));
     };
 
-    const handleSeek = (value: number) => {
-        if (!audioRef.current) return;
-        audioRef.current.currentTime = value;
-        setPlayerState(prev => ({ ...prev, progress: value }));
-    };
-
-    const handleReadyState = () => {
-        if (!audioRef.current) return;
-        setPlayerState(prev => ({ ...prev, readyState: audioRef.current.readyState }));
-        if (audioRef.current.readyState >= 2) setPlayerState(prev => ({ ...prev, isReady: true }));
-    };
-
     return {
-        playerState,
-        togglePlayPause,
-        playSong,
-        playNext,
+        playerState: state,
+        updatePlayerState: updateState,
+        setPlayerState: setState,
         playPrevious,
-        handleSeek,
         addToPlaylist,
         audioRef,
-        setPlayerState,
-        handleReadyState,
+
+        ...playbackControls,
     };
 };
 
