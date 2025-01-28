@@ -9,9 +9,8 @@ type PlayerState = {
     isShuffle: boolean;
     isRepeat: boolean;
     isReady: boolean;
-    volume: typeof HTMLMediaElement.prototype.volume;
-    progress: typeof HTMLMediaElement.prototype.currentTime;
-
+    volume: number;
+    progress: number;
     playlist: Song[];
     currentSong: Song | null;
 };
@@ -29,61 +28,53 @@ const defaultPlayerState: PlayerState = {
 
 const useMusicPlayer = () => {
     const [state, setState] = useState<PlayerState>(defaultPlayerState);
-
     const audioRef = useRef<HTMLAudioElement>(new Audio());
     const audio = audioRef.current;
 
     const updateState = (updates: Partial<PlayerState>) => setState(prev => ({ ...prev, ...updates }));
 
     useEffect(() => {
-        if (state.isPlaying) audio.play();
-    }, [state.currentSong]);
-
-    const playbackControls = {
-        togglePlayPause: () => {
-            if (!state.currentSong) return;
-            state.isPlaying ? audio.pause() : audio.play();
-            updateState({ isPlaying: !state.isPlaying });
-        },
-
-        playSong: (song: Song) => {
-            updateState({ currentSong: song, progress: 0, isPlaying: true });
-        },
-
-        toggleShuffle: () => updateState({ isShuffle: !state.isShuffle }),
-        toggleRepeat: () => updateState({ isRepeat: !state.isRepeat }),
-        handleSeek: (value: number) => {
-            if (!audioRef.current) return;
-            audioRef.current.currentTime = value;
-            updateState({ progress: value });
-        },
-
-        playNext: () => {
-            if (!state.currentSong || !state.playlist.length) return;
-            const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong?.id);
-
-            const nextIndex = state.isShuffle
-                ? getRandomIndex(currentIndex, state.playlist.length)
-                : (currentIndex + 1) % state.playlist.length;
-
-            updateState({
-                currentSong: state.playlist[nextIndex],
-                progress: 0,
+        if (state.currentSong && state.isPlaying) {
+            audio.src = state.currentSong.src;
+            audio.play().catch(() => {
+                console.error('Failed to play audio');
+                updateState({ isPlaying: false });
             });
-        },
+        } else {
+            audio.pause();
+        }
+    }, [state.currentSong, state.isPlaying]);
+
+    const togglePlayPause = () => {
+        if (!state.currentSong) return;
+        updateState({ isPlaying: !state.isPlaying });
+    };
+
+    const playSong = (song: Song) => updateState({ currentSong: song, progress: 0, isPlaying: true });
+    const toggleShuffle = () => updateState({ isShuffle: !state.isShuffle });
+    const toggleRepeat = () => updateState({ isRepeat: !state.isRepeat });
+
+    const handleSeek = (value: number) => {
+        if (!audioRef.current) return;
+        updateState({ progress: value });
+        audioRef.current.currentTime = value;
+    };
+
+    const playNext = () => {
+        const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong?.id);
+        let nextIndex;
+
+        if (state.isShuffle) nextIndex = getRandomIndex(0, state.playlist.length);
+        else nextIndex = (currentIndex + 1) % state.playlist.length;
+
+        playSong(state.playlist[nextIndex]);
     };
 
     const playPrevious = () => {
-        if (!state.currentSong) return;
-
-        const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong!.id);
-
+        const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong?.id);
         const prevIndex = (currentIndex - 1 + state.playlist.length) % state.playlist.length;
-        setState(prev => ({
-            ...prev,
-            currentSong: prev.playlist[prevIndex],
-            progress: 0,
-        }));
+
+        playSong(state.playlist[prevIndex]);
     };
 
     const addToPlaylist = (songs: Song[], replace = true) => {
@@ -97,12 +88,15 @@ const useMusicPlayer = () => {
     return {
         playerState: state,
         updatePlayerState: updateState,
-        setPlayerState: setState,
+        audioRef,
+        togglePlayPause,
+        playSong,
+        toggleShuffle,
+        toggleRepeat,
+        handleSeek,
+        playNext,
         playPrevious,
         addToPlaylist,
-        audioRef,
-
-        ...playbackControls,
     };
 };
 
