@@ -7,9 +7,12 @@ type Props = {
 
 const AlbumCard = ({ album }: Props) => {
     return (
-        <Link to={`/albums/${album.id}`} className="p-1 inline-block">
+        <Link
+            to={`/albums/${album.id}`}
+            className="p-1.5 md:p-2 inline-block hover:bg-muted/75 hover:shadow-md hover:shadow-background/75 rounded-md transition-all "
+        >
             <img
-                className="w-full block rounded-md shadow-lg border shadow-black/50"
+                className="w-full block rounded-md shadow-md border shadow-black/50"
                 src={album.image}
                 alt={album.name}
             />

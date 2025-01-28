@@ -18,7 +18,7 @@ const MiniPlayer = (props: Props) => {
         <div className={cn('absolute bottom-0 w-full z-10 p-2 ', pathname === '/player' && 'hidden')}>
             <Link
                 to={'/player'}
-                className="p-1.5 max-w-[calc(72rem-2rem)] overflow-hidden mx-auto  rounded-md md:rounded-lg relative grid grid-cols-[3rem_1fr_2rem] items-center gap-3 shadow-lg bg-card/75 backdrop-blur-md border shadow-background/70"
+                className="p-1.5 max-w-[calc(72rem-2rem)] overflow-hidden mx-auto  rounded-md md:rounded-lg relative grid grid-cols-[3rem_1fr_2rem] items-center gap-3 shadow-md bg-card/80 backdrop-blur-md border shadow-background/60"
             >
                 <img src={song.image} alt="" className="rounded-lg border " />
 

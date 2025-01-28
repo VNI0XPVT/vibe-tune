@@ -3,7 +3,7 @@ import { albums, findAlbumById } from '../utils/song';
 import AlbumCard from '../components/song/album-card';
 import { useParams } from 'react-router';
 import { Button } from '../components/ui/button';
-import { Heart, PlayCircle, PlayIcon } from 'lucide-react';
+import { ListMusicIcon, PlayIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import SongCard from '../components/song/song-card';
 import { formatDuration } from '../lib/utils';
@@ -18,7 +18,12 @@ const Album = (props: Props) => {
     const { addToPlaylist } = useMusicPlayerContext();
     const album = findAlbumById(id!);
 
-    if (!album) return <div>Album not found</div>;
+    if (!album)
+        return (
+            <div className="text-center text-muted-foreground my-10">
+                Sorry, the album you’re looking for could not be found.
+            </div>
+        );
 
     return (
         <div className="space-y-10">
@@ -28,7 +33,8 @@ const Album = (props: Props) => {
                 <div className="space-y-2">
                     <h1 className="text-2xl md:text-3xl font-semibold">{album.name}</h1>
                     <p className="text-sm text-muted-foreground">
-                        {album.songs.length} songs - {formatDuration(album.duration)} - {album.language}
+                        <b>{album.songs.length}</b> {album.songs.length === 1 ? 'song' : 'songs'} -{' '}
+                        <b>{album.language}</b>
                     </p>
                     <p className="text-sm text-muted-foreground">
                         <b>Release:</b> {album.releaseDate}
@@ -40,30 +46,41 @@ const Album = (props: Props) => {
                             .map(a => a.name)
                             .join(', ')}
                     </p>
-                    <Button className=" !mt-10" onClick={() => addToPlaylist(album.songs, true)}>
-                        <PlayIcon /> Play All
-                    </Button>
+                    <div className="flex gap-4 !mt-10">
+                        <Button onClick={() => addToPlaylist(album.songs, true)}>
+                            <PlayIcon className="mr-1" /> Play All
+                        </Button>
+
+                        <Button variant="secondary" onClick={() => addToPlaylist(album.songs, false)}>
+                            <ListMusicIcon className="mr-1" /> Add to Playlist
+                        </Button>
+                    </div>
                 </div>
             </Card>
 
+            {/* Songs Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Songs</CardTitle>
+                    <CardTitle>Track List</CardTitle>
                     <CardDescription>
-                        {album.songs.length} songs - {formatDuration(album.duration)} minutes
+                        {album.songs.length} {album.songs.length === 1 ? 'track' : 'tracks'} -{' '}
+                        {formatDuration(album.duration)} minutes
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
                     {album.songs.map((song, i) => (
-                        <SongList song={song} number={i + 1} />
+                        <SongList key={song.id} song={song} number={i + 1} />
                     ))}
                 </CardContent>
             </Card>
 
+            {/* Artists Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Artists</CardTitle>
-                    <CardDescription>{album.artists.length} artists</CardDescription>
+                    <CardTitle>Contributing Artists</CardTitle>
+                    <CardDescription>
+                        Featuring {album.artists.length} {album.artists.length === 1 ? 'artist' : 'artists'}
+                    </CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-4 md:grid-cols-7 justify-between gap-4 md:gap-8">
                     {album.artists.map(artist => (
@@ -72,25 +89,18 @@ const Album = (props: Props) => {
                 </CardContent>
             </Card>
 
+            {/* Related Albums Section */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Related Albums</CardTitle>
-                    {/* <CardDescription>{album.artists.length} artists</CardDescription> */}
+                    <CardTitle>Recommended Albums</CardTitle>
+                    <CardDescription>Discover more albums you might enjoy</CardDescription>
                 </CardHeader>
-                <CardContent className="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-5">
-                    {albums.slice(0, 6).map((album, index) => (
-                        <AlbumCard key={index} album={album} />
+                <CardContent className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                    {albums.slice(0, 6).map((relatedAlbum, index) => (
+                        <AlbumCard key={index} album={relatedAlbum} />
                     ))}
                 </CardContent>
             </Card>
-
-            {/* <div className='mt-12 grid grid-cols-6 md:gap-5'>
-            {
-                albums.map((album, index) => (
-                    <AlbumCard key={index} album={album} />
-                ))
-            }
-        </div> */}
         </div>
     );
 };

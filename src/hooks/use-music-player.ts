@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { getRandomIndex } from '../lib/utils';
 import { songs } from '../utils/song';
 import toast from 'react-hot-toast';
+import _, { uniqBy } from 'lodash';
 
 type Song = (typeof songs)[number];
 
@@ -75,7 +76,7 @@ const useMusicPlayer = () => {
 
         setState(prev => ({
             ...prev,
-            playlist: replace ? songs : [...prev.playlist, ...songs],
+            playlist: replace ? songs : uniqBy([...prev.playlist, ...songs], 'id'),
         }));
 
         if (replace) playSong(songs[0]);

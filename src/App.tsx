@@ -7,10 +7,12 @@ import Albums from './pages/albums';
 import Album from './pages/album';
 import Player from './pages/player';
 import QueuePage from './pages/queue';
+import ScrollToTop from './components/scroll-top-top';
 
 function App() {
     return (
         <BrowserRouter>
+            {/* <ScrollToTop /> */}
             <Routes>
                 <Route index element={<LandingPage />} />
 
