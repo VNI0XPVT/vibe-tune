@@ -9,12 +9,12 @@ const Sidebar = (props: Props) => {
     return (
         <div className="w-72 max-md:hidden h-screen bg-card ">
             <div className="p-2 px-6 border-b">
-                <h2 className="font-semibold text-cente">
+                <h2 className="font-semibold text-center">
                     <span className="text-gradient text-xl">Music Player</span>
                 </h2>
             </div>
 
-            <div className="flex flex-col gap-3 mt-5 p-4">
+            <div className="flex flex-col gap-3 mt-4 p-4">
                 {NavLinks.map(link => (
                     <Link
                         to={link.href}

@@ -68,7 +68,7 @@ const SongList = ({ song, number, showAlbum = false }: Props) => {
         <>
             <img src={song.image} className="border rounded-md size-11 md:size-11 " />
 
-            <div className="flex-1 flex flex-col justify-evenly">
+            <div className="flex-1 flex flex-col justify-around">
                 <h4 className="font-semibold text-foreground/90 line-clamp-1 text-ellipsis">{song.name}</h4>
                 <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 text-ellipsis">{song.album.name}</p>
             </div>

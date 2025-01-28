@@ -26,7 +26,7 @@ const Album = (props: Props) => {
         );
 
     return (
-        <div className="space-y-10">
+        <div className="space-y-8">
             <Card className="flex flex-col md:flex-row md:justify-start mt-10 gap-5 md:gap-8 md:items-center p-5">
                 <img className="w-full md:size-52 rounded-lg border shadow-md" src={album.image} alt={album.name} />
 
@@ -58,7 +58,6 @@ const Album = (props: Props) => {
                 </div>
             </Card>
 
-            {/* Songs Section */}
             <Card>
                 <CardHeader>
                     <CardTitle>Track List</CardTitle>
@@ -74,7 +73,6 @@ const Album = (props: Props) => {
                 </CardContent>
             </Card>
 
-            {/* Artists Section */}
             <Card>
                 <CardHeader>
                     <CardTitle>Contributing Artists</CardTitle>
@@ -89,7 +87,6 @@ const Album = (props: Props) => {
                 </CardContent>
             </Card>
 
-            {/* Related Albums Section */}
             <Card>
                 <CardHeader>
                     <CardTitle>Recommended Albums</CardTitle>

@@ -43,7 +43,7 @@ const Player = (props: Props) => {
     const isInPlaylist = playlist.some(s => s.id === song.id);
 
     return (
-        <div className="space-y-6 md:space-y-10">
+        <div className="space-y-6 md:space-y-8">
             <Card className="flex flex-col md:flex-row overflow-hidden mx-auto p-6 md:p-6 gap-10 mt-8">
                 <div className=" md:h-56">
                     <img
