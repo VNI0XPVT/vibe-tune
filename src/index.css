@@ -109,7 +109,7 @@
     /* span.text-gradient */
     .gradient {
         /* @apply bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500; */
-        @apply bg-gradient-to-r from-green-600  to-cyan-600;
+        @apply bg-gradient-to-br from-green-500  to-cyan-500;
     }
 
     .gradient-text,
