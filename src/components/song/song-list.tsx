@@ -52,10 +52,17 @@ const SongList = ({ song, number, showAlbum = false }: Props) => {
     const SongWithoutAlbum = (
         <>
             <div className="w-4 text-center flex items-center justify-center text-sm">
-                {isCurrentSong ? <Bars color="white" height={16} width={16} /> : <span>{number}</span>}
+                {isCurrentSong ? <Bars color="hsl(var(--primary))" height={16} width={16} /> : <span>{number}</span>}
             </div>
 
-            <p className="flex-1 max-md:text-sm font-semibold text-foreground/90">{song.name}</p>
+            <p
+                className={cn(
+                    'flex-1 max-md:text-sm font-semibold text-foreground/90 line-clamp-1 text-ellipsis',
+                    isCurrentSong && 'text-primary'
+                )}
+            >
+                {song.name}
+            </p>
             <Artist />
             <QueueBtn />
             <Duration />
@@ -68,14 +75,21 @@ const SongList = ({ song, number, showAlbum = false }: Props) => {
                 <img src={song.image} className=" rounded-md size-full" />
 
                 {isCurrentSong && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/60">
-                        <Bars color="white" height={20} width={20} />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/70">
+                        <Bars color="hsl(var(--primary))" height={20} width={20} />
                     </div>
                 )}
             </div>
 
-            <div className="flex-1 flex flex-col justify-around">
-                <h4 className="font-semibold text-foreground/90 line-clamp-1 text-ellipsis">{song.name}</h4>
+            <div className="flex-1 flex flex-col justify-around ">
+                <h4
+                    className={cn(
+                        'text-sm md:text-base font-semibold text-foreground/90 line-clamp-1 text-ellipsis',
+                        isCurrentSong && 'text-primary'
+                    )}
+                >
+                    {song.name}
+                </h4>
                 <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 text-ellipsis">{song.album.name}</p>
             </div>
 

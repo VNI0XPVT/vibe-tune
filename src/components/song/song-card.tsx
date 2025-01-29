@@ -1,6 +1,7 @@
 import React from 'react';
 import songs from '../../data/songs-data';
 import { useMusicPlayerContext } from '../../context/audio-provider';
+import { cn } from '../../lib/utils';
 
 type Props = {
     song: (typeof songs)[number];
@@ -8,6 +9,7 @@ type Props = {
 
 const SongCard = ({ song }: Props) => {
     const { playSong } = useMusicPlayerContext();
+    const { playerState } = useMusicPlayerContext();
 
     return (
         <div
@@ -18,7 +20,14 @@ const SongCard = ({ song }: Props) => {
             <img src={song.image} className="border rounded-full size-10" />
 
             <div>
-                <h3 className=" text-primary/90 line-clamp-1 text-ellipsis">{song.name}</h3>
+                <h3
+                    className={cn(
+                        'line-clamp-1 text-ellipsis',
+                        playerState.currentSong?.id === song.id && 'text-primary'
+                    )}
+                >
+                    {song.name}
+                </h3>
                 <p className="text-xs text-muted-foreground line-clamp-1 text-ellipsis">
                     {song.album.name} - {song.artists[0].name}
                 </p>

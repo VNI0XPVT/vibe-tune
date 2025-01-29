@@ -65,7 +65,10 @@ const Player = (props: Props) => {
                             </h3>
 
                             <p className="text-sm md:text-base text-muted-foreground ">
-                                <Link to={`/albums/${song.album.id}`}> {song.album.name}</Link> • {song.releaseDate}
+                                <Link className="text-primary hover:underline" to={`/albums/${song.album.id}`}>
+                                    {song.album.name}
+                                </Link>{' '}
+                                • {song.releaseDate}
                             </p>
                         </div>
 

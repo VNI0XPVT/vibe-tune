@@ -59,7 +59,7 @@ const ArtistPage = (props: Props) => {
                 </CardHeader>
                 <CardContent className="space-y-2">
                     {artist.songs.map((song, i) => (
-                        <SongList key={song.id} song={song} number={i + 1} />
+                        <SongList key={song.id} song={song} showAlbum={true} />
                     ))}
                 </CardContent>
             </Card>

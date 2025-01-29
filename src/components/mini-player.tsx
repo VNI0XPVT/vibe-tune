@@ -35,7 +35,9 @@ const MiniPlayer = (props: Props) => {
                         onClick={e => {
                             togglePlayPause();
                             e.preventDefault();
+                            // e.stopPropagation();
                         }}
+                        className="text-primary"
                     >
                         {playerState.isPlaying ? <Pause className="size-6" /> : <Play className="size-6" />}
                     </button>

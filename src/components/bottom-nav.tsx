@@ -13,13 +13,13 @@ export function BottomNav() {
                         to={link.href}
                         key={link.name}
                         className={cn(
-                            'flex flex-col items-center text-muted-foreground',
-                            pathname === link.href && 'text-primary'
+                            'flex flex-col items-center text-muted-foreground font-semibold',
+                            pathname === link.href && 'text-primary font-bold'
                         )}
                     >
                         <link.icons className="size-5" />
 
-                        <span className="text-xs mt-1 font-semibold">{link.name}</span>
+                        <span className="text-xs mt-1 ">{link.name}</span>
                     </Link>
                 ))}
             </div>

@@ -24,7 +24,7 @@ const SearchPage = (props: Props) => {
     }, [query]);
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 mt-1">
             <SearchBar onChange={setQuery} />
 
             {query.length > 0 && (
