@@ -1,7 +1,9 @@
 import { Link } from 'react-router';
-import { Github, Music4, Rocket } from 'lucide-react';
+import { ChevronRight, Github, Music4, Rocket } from 'lucide-react';
 import { AnimatedGridPattern } from '../components/ui/animated-grid-pattern';
 import { AnimatedShinyText } from '../components/ui/animated-shiny-text';
+import { AnimatedGradientText } from '../components/ui/animated-gradient-text';
+import { cn } from '../lib/utils';
 
 type Props = {};
 
@@ -19,7 +21,7 @@ const LandingPage = (props: Props) => {
                     <Music4 className="size-10" />
                 </div> */}
 
-                <div
+                {/* <div
                     className={
                         'group relative z-10 w-fit mx-auto rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-6'
                     }
@@ -32,6 +34,20 @@ const LandingPage = (props: Props) => {
                             </span>
                         </AnimatedShinyText>
                     </a>
+                </div> */}
+
+                <div className="z-10 flex items-center justify-center mb-8">
+                    <AnimatedGradientText>
+                        🎉 <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300" />{' '}
+                        <span
+                            className={cn(
+                                `inline animate-gradient gradient bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`
+                            )}
+                        >
+                            Introducing Melody
+                        </span>
+                        {/* <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" /> */}
+                    </AnimatedGradientText>
                 </div>
 
                 <h1 className="text-3xl md:text-5xl font-bold mb-4">
