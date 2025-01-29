@@ -108,19 +108,16 @@
 @layer utilities {
     /* span.text-gradient */
     .gradient {
-        @apply bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500;
+        /* @apply bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500; */
+        @apply bg-gradient-to-r from-green-600  to-cyan-600;
     }
 
     .gradient-text,
     .text-gradient {
-        @apply bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 text-transparent bg-clip-text;
-    }
+        /* @apply bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500; */
+        @apply bg-gradient-to-r from-green-500  to-cyan-500;
 
-    .chat-gradient {
-        @apply from-blue-700 via-purple-700 to-rose-700 bg-no-repeat bg-center bg-fixed;
-        /* @apply from-fuchsia-600 to-blue-600 bg-no-repeat bg-center bg-fixed; */
-        /* @apply from-orange-500 via-red-600 to-purple-600 bg-no-repeat bg-center bg-fixed; */
-        /* @apply from-orange-500 via-red-600 to-purple-600 bg-no-repeat bg-center bg-fixed; */
+        @apply text-transparent bg-clip-text;
     }
 
     .bg-gradient {

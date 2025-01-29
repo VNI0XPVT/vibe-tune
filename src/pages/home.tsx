@@ -12,7 +12,7 @@ const Home = (props: Props) => {
     const { width: windowWidth } = useWindowSize();
 
     return (
-        <div className="space-y-6">
+        <div className="grid gap-6">
             <h2 className="text-2xl md:hidden md:text-3xl font-bold text-foreground/90">
                 Good Afternoon <span className="text-gradient">User</span>
             </h2>

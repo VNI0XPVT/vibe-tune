@@ -48,8 +48,10 @@ const Player = (props: Props) => {
     const isInPlaylist = playlist.some(s => s.id === song.id);
 
     return (
-        <div className="space-y-6 md:space-y-8">
-            <Card className="flex flex-col md:flex-row overflow-hidden mx-auto p-6 md:p-6 gap-10 mt-8">
+        <div className="grid gap-6 md:gap-10">
+            {/* <h2 className="text-2xl font-semibold text-center mt-6">Player</h2> */}
+
+            <Card className="flex flex-col md:flex-row overflow-hidden mx-auto p-6 md:p-6 gap-10 w-full mt-6">
                 <div className=" md:h-56">
                     <img
                         className="size-full aspect-[5/4] border rounded-lg shadow-lg shadow-background/80 "
