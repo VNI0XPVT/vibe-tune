@@ -1,5 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import {
+    ChevronRight,
+    ChevronRightSquare,
+    ChevronsLeft,
+    FastForwardIcon,
     HeartIcon,
     LoaderCircleIcon,
     MinusCircle,
@@ -18,6 +22,7 @@ import SongList from '../components/song/song-list';
 import { formatDuration } from '../lib/utils';
 import AartistCard from '../components/song/artist-card';
 import { useMusicPlayerContext } from '../context/audio-provider';
+import { Link } from 'react-router';
 
 type Props = {};
 
@@ -52,19 +57,17 @@ const Player = (props: Props) => {
                     />
                 </div>
 
-                <div className="flex-1 flex flex-col justify-between gap-8">
-                    <div className="flex items-center gap-3">
+                <div className="flex-1 flex flex-col justify-between gap-6">
+                    <div className="flex items-center gap-2">
                         <div className="flex-1">
                             <h3 className="text-xl md:text-2xl font-semibold line-clamp-1 text-ellipsis">
                                 {song.name}
                             </h3>
 
-                            <p className="text-sm md:text-base text-muted-foreground md:mt-1">
-                                {song.album.name} • {song.releaseDate}
+                            <p className="text-sm md:text-base text-muted-foreground ">
+                                <Link to={`/albums/${song.album.id}`}> {song.album.name}</Link> • {song.releaseDate}
                             </p>
                         </div>
-
-                        {/* <HeartIcon className="size-6" /> */}
 
                         <div
                             role="button"
@@ -98,9 +101,13 @@ const Player = (props: Props) => {
 
                     <div className="flex justify-between items-center gap-6">
                         <ShuffleIcon className="size-4 text-muted-foreground" />
-                        <div className="flex items-center justify-center gap-8">
+                        <div className="flex items-center justify-center gap-4 md:gap-8">
                             <Button size={'icon'} variant={'ghost'} onClick={playPrevious}>
-                                <SkipBack className="size-5" />
+                                <SkipBack className="" />
+                            </Button>
+
+                            <Button size={'icon'} variant={'ghost'} onClick={playPrevious} className="max-md:hidden">
+                                <FastForwardIcon className="rotate-180" />
                             </Button>
 
                             {playerState.isReady && (
@@ -123,12 +130,22 @@ const Player = (props: Props) => {
                                     <LoaderCircleIcon className="animate-spin" />
                                 </Button>
                             )}
-
+                            <Button size={'icon'} variant={'ghost'} onClick={playPrevious} className="max-md:hidden">
+                                <FastForwardIcon className="rotate-0" />
+                            </Button>
                             <Button size={'icon'} variant={'ghost'} onClick={playNext}>
                                 <SkipForward className="size-5" />
                             </Button>
                         </div>
                         <RepeatIcon className="size-4 text-muted-foreground" />
+                    </div>
+
+                    <div className="text-xs text-muted-foreground/75 text-center">
+                        Playing <b>{playerState.currentSongIndex + 1}</b> of{' '}
+                        <b>
+                            {playlist.length} {playlist.length === 1 ? 'song' : 'songs'}
+                        </b>{' '}
+                        in the playlist
                     </div>
                 </div>
             </Card>

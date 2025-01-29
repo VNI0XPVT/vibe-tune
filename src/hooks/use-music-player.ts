@@ -15,6 +15,7 @@ type PlayerState = {
     progress: number;
     playlist: Song[];
     currentSong: Song | null;
+    currentSongIndex: number;
 };
 
 const defaultPlayerState: PlayerState = {
@@ -26,6 +27,7 @@ const defaultPlayerState: PlayerState = {
     isReady: false,
     playlist: songs,
     currentSong: songs[0],
+    currentSongIndex: 0,
 };
 
 const useMusicPlayer = () => {
@@ -38,6 +40,9 @@ const useMusicPlayer = () => {
     useEffect(() => {
         if (state.isPlaying) audio.play();
         else audio.pause();
+
+        audio.volume = state.volume;
+        updateState({ currentSongIndex: state.playlist.findIndex(song => song.id === state.currentSong?.id) });
     }, [state.currentSong, state.isPlaying]);
 
     const togglePlayPause = () => {
