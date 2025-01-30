@@ -1,12 +1,9 @@
 import { cn } from '../lib/utils';
-import Marquee from 'react-fast-marquee';
 import { Link, useLocation } from 'react-router';
 import { LoaderCircleIcon, Pause, Play } from 'lucide-react';
 import { useMusicPlayerContext } from '../context/audio-provider';
 
-type Props = {};
-
-const MiniPlayer = (props: Props) => {
+const MiniPlayer = () => {
     const { pathname } = useLocation();
 
     const { playerState, togglePlayPause } = useMusicPlayerContext();
@@ -35,7 +32,6 @@ const MiniPlayer = (props: Props) => {
                         onClick={e => {
                             togglePlayPause();
                             e.preventDefault();
-                            // e.stopPropagation();
                         }}
                         className="text-primary"
                     >

@@ -8,27 +8,31 @@ import Album from './pages/album';
 import Player from './pages/player';
 import QueuePage from './pages/queue';
 import ArtistPage from './pages/artist';
+import { Toaster } from 'react-hot-toast';
+import AudioProvider from './context/audio-provider';
 
 function App() {
     return (
-        <BrowserRouter>
-            {/* <ScrollToTop /> */}
-            <Routes>
-                <Route index element={<LandingPage />} />
+        <AudioProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route index element={<LandingPage />} />
 
-                <Route element={<DashboardLayout />}>
-                    <Route path="home" element={<Home />} />
-                    <Route path="search" element={<SearchPage />} />
-                    <Route path="artists/:id" element={<ArtistPage />} />
-                    <Route path="albums" element={<Albums />} />
-                    <Route path="albums/:id" element={<Album />} />
+                    <Route element={<DashboardLayout />}>
+                        <Route path="home" element={<Home />} />
+                        <Route path="search" element={<SearchPage />} />
+                        <Route path="artists/:id" element={<ArtistPage />} />
+                        <Route path="albums" element={<Albums />} />
+                        <Route path="albums/:id" element={<Album />} />
 
-                    <Route path="queue" element={<QueuePage />} />
+                        <Route path="queue" element={<QueuePage />} />
 
-                    <Route path="player" element={<Player />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+                        <Route path="player" element={<Player />} />
+                    </Route>
+                </Routes>
+                <Toaster />
+            </BrowserRouter>
+        </AudioProvider>
     );
 }
 

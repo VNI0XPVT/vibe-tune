@@ -18,7 +18,6 @@ export function BottomNav() {
                         )}
                     >
                         <link.icons className="size-5" />
-
                         <span className="text-xs mt-1 ">{link.name}</span>
                     </Link>
                 ))}

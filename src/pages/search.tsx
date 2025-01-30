@@ -1,13 +1,10 @@
-import { Search } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import songs from '../data/songs-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import SongCard from '../components/song/song-card';
 import SearchBar from '../components/search-bar';
 
-type Props = {};
-
-const SearchPage = (props: Props) => {
+const SearchPage = () => {
     const [results, setResults] = useState<typeof songs>([]);
     const [query, setQuery] = useState('');
 

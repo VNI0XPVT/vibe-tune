@@ -1,13 +1,10 @@
 import { Link } from 'react-router';
-import { ChevronRight, Github, Music4, Rocket } from 'lucide-react';
+import { Github, Rocket } from 'lucide-react';
 import { AnimatedGridPattern } from '../components/ui/animated-grid-pattern';
-import { AnimatedShinyText } from '../components/ui/animated-shiny-text';
 import { AnimatedGradientText } from '../components/ui/animated-gradient-text';
 import { cn } from '../lib/utils';
 
-type Props = {};
-
-const LandingPage = (props: Props) => {
+const LandingPage = () => {
     return (
         <div className="min-h-dvh text-center flex items-center justify-center p-4 relative">
             <AnimatedGridPattern

@@ -1,8 +1,8 @@
-import { Heart, ListPlusIcon, MinusCircleIcon, PlayCircle, PlusCircle } from 'lucide-react';
+import { MinusCircleIcon, PlusCircle } from 'lucide-react';
 import { cn, formatDuration } from '../../lib/utils';
 import songs from '../../data/songs-data';
 import { useMusicPlayerContext } from '../../context/audio-provider';
-import { Audio, Bars } from 'react-loader-spinner';
+import { Bars } from 'react-loader-spinner';
 
 type Props = {
     number?: number;

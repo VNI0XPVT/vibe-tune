@@ -1,19 +1,15 @@
-import React from 'react';
 import { albums, findAlbumById } from '../utils/song';
 import AlbumCard from '../components/song/album-card';
 import { useParams } from 'react-router';
 import { Button } from '../components/ui/button';
 import { ListMusicIcon, PlayIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import SongCard from '../components/song/song-card';
 import { formatDuration } from '../lib/utils';
 import SongList from '../components/song/song-list';
 import AartistCard from '../components/song/artist-card';
 import { useMusicPlayerContext } from '../context/audio-provider';
 
-type Props = {};
-
-const Album = (props: Props) => {
+const Album = () => {
     const { id } = useParams();
     const { addToPlaylist } = useMusicPlayerContext();
     const album = findAlbumById(id!);

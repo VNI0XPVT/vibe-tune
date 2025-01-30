@@ -1,4 +1,4 @@
-import { Heart, Home, Library, Search, ListMusicIcon } from 'lucide-react';
+import { Home, Library, Search, ListMusicIcon } from 'lucide-react';
 
 const NavLinks = [
     {

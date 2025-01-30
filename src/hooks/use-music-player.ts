@@ -3,6 +3,7 @@ import { getRandomIndex } from '../lib/utils';
 import { songs } from '../utils/song';
 import toast from 'react-hot-toast';
 import _, { uniqBy } from 'lodash';
+import { useLocalStorage } from 'react-use';
 
 type Song = (typeof songs)[number];
 
@@ -31,11 +32,18 @@ const defaultPlayerState: PlayerState = {
 };
 
 const useMusicPlayer = () => {
-    const [state, setState] = useState<PlayerState>(defaultPlayerState);
+    const [localState, setLocalState] = useLocalStorage('playerState', defaultPlayerState);
+
+    const [state, setState] = useState<PlayerState>(localState || defaultPlayerState);
     const audioRef = useRef<HTMLAudioElement>(new Audio());
     const audio = audioRef.current;
 
-    const updateState = (updates: Partial<PlayerState>) => setState(prev => ({ ...prev, ...updates }));
+    useEffect(() => setLocalState(state), [state]);
+
+    const updateState = (updates: Partial<PlayerState>) => {
+        setState(prev => ({ ...prev, ...updates }));
+        setLocalState(state);
+    };
 
     useEffect(() => {
         if (state.isPlaying) audio.play();

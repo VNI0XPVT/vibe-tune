@@ -2,9 +2,7 @@ import SongList from '../components/song/song-list';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { useMusicPlayerContext } from '../context/audio-provider';
 
-type Props = {};
-
-const QueuePage = (props: Props) => {
+const QueuePage = () => {
     const {
         playerState: { playlist },
     } = useMusicPlayerContext();

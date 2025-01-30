@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { useParams } from 'react-router';
 import { findArtistById } from '../utils/song';
@@ -6,18 +5,14 @@ import { Button } from '../components/ui/button';
 import { ListMusicIcon, PlayIcon } from 'lucide-react';
 import { useMusicPlayerContext } from '../context/audio-provider';
 import SongList from '../components/song/song-list';
-import { formatDuration } from '../lib/utils';
 
-type Props = {};
-
-const ArtistPage = (props: Props) => {
+const ArtistPage = () => {
     const { addToPlaylist } = useMusicPlayerContext();
 
     const { id } = useParams();
     if (!id) return null;
 
     const artist = findArtistById(id);
-    console.log(artist);
     if (!artist) return null;
 
     return (
@@ -39,11 +34,11 @@ const ArtistPage = (props: Props) => {
                     </p>
 
                     <div className="flex gap-4 mt-8">
-                        <Button onClick={() => addToPlaylist(artist.songs, true)}>
+                        <Button onClick={() => addToPlaylist(artist.songs as any, true)}>
                             <PlayIcon className="mr-1" /> Play All
                         </Button>
 
-                        <Button variant="secondary" onClick={() => addToPlaylist(artist.songs, false)}>
+                        <Button variant="secondary" onClick={() => addToPlaylist(artist.songs as any, false)}>
                             <ListMusicIcon className="mr-1" /> Add to Playlist
                         </Button>
                     </div>
@@ -59,7 +54,7 @@ const ArtistPage = (props: Props) => {
                 </CardHeader>
                 <CardContent className="space-y-2">
                     {artist.songs.map((song, i) => (
-                        <SongList key={song.id} song={song} showAlbum={true} />
+                        <SongList key={i} song={song as any} showAlbum={true} />
                     ))}
                 </CardContent>
             </Card>

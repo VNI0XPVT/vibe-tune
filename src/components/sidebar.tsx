@@ -2,12 +2,10 @@ import { Link, useLocation } from 'react-router';
 import { cn } from '../lib/utils';
 import NavLinks from '../config/nav-link';
 
-type Props = {};
-
-const Sidebar = (props: Props) => {
+const Sidebar = () => {
     const { pathname } = useLocation();
     return (
-        <div className="w-72 max-md:hidden h-screen bg-card ">
+        <div className="w-72 max-md:hidden h-screen bg-card border-r ">
             <div className="p-2 px-6 border-b">
                 <h2 className="font-semibold text-center">
                     <span className="text-gradient text-xl">Music Player</span>

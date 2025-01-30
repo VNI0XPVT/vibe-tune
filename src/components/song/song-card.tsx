@@ -1,4 +1,3 @@
-import React from 'react';
 import songs from '../../data/songs-data';
 import { useMusicPlayerContext } from '../../context/audio-provider';
 import { cn } from '../../lib/utils';

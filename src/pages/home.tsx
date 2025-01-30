@@ -1,40 +1,30 @@
-import songs from '../data/songs-data';
-import artists from '../data/artists';
-import { albums, findSongs } from '../utils/song';
+import { albums, findArtists, findSongs } from '../utils/song';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import SongCard from '../components/song/song-card';
 import AlbumCard from '../components/song/album-card';
 import { useWindowSize } from 'react-use';
 import SongList from '../components/song/song-list';
+import AartistCard from '../components/song/artist-card';
 
-type Props = {};
-const Home = (props: Props) => {
+const Home = () => {
     const { width: windowWidth } = useWindowSize();
 
     return (
         <div className="grid gap-6">
-            <h2 className="text-2xl md:hidden md:text-3xl font-bold text-foreground/90">
+            {/* <h2 className="text-2xl md:hidden md:text-3xl font-bold text-foreground/90">
                 Good Afternoon <span className="text-gradient">User</span>
-            </h2>
+            </h2> */}
 
             <Card className="bg-gradient">
                 <CardHeader>
                     <CardTitle>Top Artists</CardTitle>
                     <CardDescription>Discover the most popular artists</CardDescription>
                 </CardHeader>
-                <CardContent className="grid grid-cols-3 gap-3 md:grid-cols-6 place-items-center items-center">
-                    {artists.slice(0, 6).map(artist => (
-                        <div key={artist.id} className="p-1.5">
-                            <img
-                                className="size-16 md:size-32 mx-auto block rounded-full shadow-lg  shadow-black/50"
-                                src={artist.image}
-                                alt={artist.name}
-                            />
-
-                            <h4 className="mt-2  text-sm  text-ellipsis line-clamp-1">{artist.name}</h4>
-                            <p className="text-xs text-muted-foreground">Artist</p>
-                        </div>
-                    ))}
+                <CardContent className="grid grid-cols-3 gap-x-8 gap-y-2 md:grid-cols-6 place-items-center items-center">
+                    {findArtists()
+                        .slice(0, 6)
+                        .map(artist => (
+                            <AartistCard key={artist.id} artist={artist as any} />
+                        ))}
                 </CardContent>
             </Card>
 

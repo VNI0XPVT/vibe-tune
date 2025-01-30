@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useMemo, useEffect } from 'react';
 import useMusicPlayer from '../hooks/use-music-player';
 
 type MusicPlayerContextType = ReturnType<typeof useMusicPlayer>;

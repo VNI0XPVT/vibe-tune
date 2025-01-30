@@ -1,10 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import {
-    ChevronRight,
-    ChevronRightSquare,
-    ChevronsLeft,
     FastForwardIcon,
-    HeartIcon,
     LoaderCircleIcon,
     MinusCircle,
     PauseIcon,
@@ -24,20 +20,9 @@ import AartistCard from '../components/song/artist-card';
 import { useMusicPlayerContext } from '../context/audio-provider';
 import { Link } from 'react-router';
 
-type Props = {};
-
-const Player = (props: Props) => {
-    const {
-        playerState,
-        handleSeek,
-        togglePlayPause,
-        playNext,
-        playPrevious,
-        toggleRepeat,
-        toggleShuffle,
-        addToPlaylist,
-        removeFromPlaylist,
-    } = useMusicPlayerContext();
+const Player = () => {
+    const { playerState, handleSeek, togglePlayPause, playNext, playPrevious, addToPlaylist, removeFromPlaylist } =
+        useMusicPlayerContext();
     const { currentSong: song, playlist } = playerState;
 
     if (!song) return <p></p>;
