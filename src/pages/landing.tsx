@@ -16,7 +16,7 @@ const LandingPage = (props: Props) => {
                 maxOpacity={0.2}
                 className={'[mask-image:linear-gradient(to_top,#fff9,transparent)]'}
             />
-            <div className="max-w-2xl z-20 -translate-y-0">
+            <div className="max-w-5xl z-20 md:-translate-y-6">
                 {/* <div className="flex items-center justify-center p-3 mx-auto rounded-md gradient w-fit mb-6">
                     <Music4 className="size-10" />
                 </div> */}
@@ -50,10 +50,14 @@ const LandingPage = (props: Props) => {
                     </AnimatedGradientText>
                 </div>
 
-                <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                {/* <h1 className="text-3xl md:text-5xl font-bold mb-4">
                     Discover and Enjoy <span className="text-gradient">Music</span>
+                </h1>  */}
+                <h1 className="text-3xl md:text-7xl font-bold mb-4">
+                    <span className="text-gradient">Melody</span> Player
                 </h1>
-                <p className="text-muted-foreground text-lg md:text-xl">
+
+                <p className="text-muted-foreground max-w-2xl text-lg md:text-2xl">
                     Melody is the ultimate music player app that lets you stream, download, and discover new music with
                     ease.
                 </p>
@@ -74,6 +78,13 @@ const LandingPage = (props: Props) => {
                     </Link>
                 </div>
             </div>
+
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-muted-foreground w-full text-center">
+                Made by{' '}
+                <a href="http://" target="_blank" className="underline">
+                    @devxprite
+                </a>
+            </p>
         </div>
     );
 };
