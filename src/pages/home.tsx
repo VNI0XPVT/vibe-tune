@@ -47,7 +47,7 @@ const Home = () => {
                     <CardDescription>Discover the most popular songs</CardDescription>
                 </CardHeader>
                 <CardContent className="grid md:grid-cols-1 gap-x-6 gap-y-1">
-                    {findSongs(15).map(song => (
+                    {findSongs(30).map(song => (
                         <SongList key={song.id} song={song} showAlbum={true} />
                     ))}
                 </CardContent>

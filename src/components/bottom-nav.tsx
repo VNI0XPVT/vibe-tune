@@ -1,6 +1,6 @@
+import NavLinks from '@/config/nav-link';
+import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router';
-import NavLinks from '../config/nav-link';
-import { cn } from '../lib/utils';
 
 export function BottomNav() {
     const { pathname } = useLocation();

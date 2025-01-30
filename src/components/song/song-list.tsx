@@ -3,6 +3,7 @@ import { cn, formatDuration } from '../../lib/utils';
 import songs from '../../data/songs-data';
 import { useMusicPlayerContext } from '../../context/audio-provider';
 import { Bars } from 'react-loader-spinner';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 type Props = {
     number?: number;
@@ -72,7 +73,14 @@ const SongList = ({ song, number, showAlbum = false }: Props) => {
     const SongWithAlbum = (
         <>
             <div className="size-11 md:size-11 relative border rounded-md overflow-hidden">
-                <img src={song.image} className=" rounded-md size-full" />
+                {/* @ts-ignore */}
+                <LazyLoadImage
+                    className="rounded-md size-full"
+                    src={song.image}
+                    alt={song.name}
+                    effect="blur"
+                    // placeholderSrc="/placeholder.png"
+                />
 
                 {isCurrentSong && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/70">

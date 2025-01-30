@@ -2,6 +2,7 @@ import { cn } from '../lib/utils';
 import { Link, useLocation } from 'react-router';
 import { LoaderCircleIcon, Pause, Play } from 'lucide-react';
 import { useMusicPlayerContext } from '../context/audio-provider';
+import { Bars } from 'react-loader-spinner';
 
 const MiniPlayer = () => {
     const { pathname } = useLocation();
@@ -19,11 +20,14 @@ const MiniPlayer = () => {
             >
                 <img src={song.image} alt="" className="rounded-lg border " />
 
-                <div className="flex flex-col justify-evenly h-full">
+                <div className="flex flex-col justify-evenly h-full overflow-hidden">
                     <h4 className="md:text-lg line-clamp-1 text-ellipsis">{song.name}</h4>
 
-                    <p className="text-xs text-muted-foreground line-clamp-1 text-ellipsis">
-                        {song.album.name} - {song.artists[0].name}
+                    <p className="text-xs text-muted-foreground line-clamp-1 text-ellipsis flex items-center gap-1 ">
+                        <Bars color="hsl(var(--muted-foreground))" height={10} width={10} />
+                        <span className="line-clamp-1 text-ellipsis">
+                            {song.album.name} - {song.artists[0].name}
+                        </span>
                     </p>
                 </div>
 
