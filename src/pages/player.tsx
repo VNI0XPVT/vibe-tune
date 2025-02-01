@@ -1,39 +1,25 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import {
-    FastForwardIcon,
-    LoaderCircleIcon,
-    MinusCircle,
-    PauseIcon,
-    PlayIcon,
-    PlusCircle,
-    RepeatIcon,
-    ShuffleIcon,
-    SkipBack,
-    SkipForward,
-} from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Slider } from '../components/ui/slider';
+import { MinusCircle, PlusCircle } from 'lucide-react';
 import { findAlbumById } from '../utils/song';
 import SongList from '../components/song/song-list';
-import { cn, formatDuration } from '../lib/utils';
 import AartistCard from '../components/song/artist-card';
 import { useMusicPlayerContext } from '../context/audio-provider';
 import { Link } from 'react-router';
+import ProgressBar from '@/components/progress-bar';
+import PlaybackControls from '@/components/playback-controls';
+
+const PlaylistStatus = ({ currentIndex = 0, totalSongs = 0 }) => (
+    <div className="text-xs text-muted-foreground/75 text-center">
+        Playing <b>{currentIndex + 1}</b> of{' '}
+        <b>
+            {totalSongs} {totalSongs === 1 ? 'song' : 'songs'}
+        </b>{' '}
+        in the playlist
+    </div>
+);
 
 const Player = () => {
-    const {
-        playerState,
-        handleSeek,
-        togglePlayPause,
-        playNext,
-        playPrevious,
-        addToPlaylist,
-        removeFromPlaylist,
-        seekForward,
-        seekBackward,
-        toggleShuffle,
-        toggleRepeat,
-    } = useMusicPlayerContext();
+    const { playerState, addToPlaylist, removeFromPlaylist } = useMusicPlayerContext();
     const { currentSong: song, playlist } = playerState;
 
     if (!song) return <p></p>;
@@ -84,68 +70,9 @@ const Player = () => {
                         </div>
                     </div>
 
-                    <div>
-                        <Slider
-                            value={[playerState.progress]}
-                            max={song.duration}
-                            step={1}
-                            onValueChange={value => handleSeek(value[0])}
-                        />
-
-                        <div className="flex text-xs md:text-sm justify-between items-center mt-1.5 md:mt-2 text-muted-foreground">
-                            <span>{formatDuration(playerState.progress)}</span>
-                            <span>{formatDuration(song.duration)}</span>
-                        </div>
-                    </div>
-
-                    <div className="flex justify-between items-center gap-1">
-                        <Button size={'icon'} variant={'link'} onClick={toggleShuffle}>
-                            <ShuffleIcon
-                                className={cn(playerState.isShuffle ? 'text-primary' : 'text-muted-foreground')}
-                            />
-                        </Button>
-                        <div className="flex items-center justify-center gap-1 md:gap-8">
-                            <Button size={'icon'} variant={'ghost'} onClick={playPrevious}>
-                                <SkipBack className="" />
-                            </Button>
-
-                            <Button size={'icon'} variant={'ghost'} onClick={seekBackward}>
-                                <FastForwardIcon className="rotate-180" />
-                            </Button>
-
-                            <Button
-                                size={'icon'}
-                                variant={'default'}
-                                onClick={togglePlayPause}
-                                className="rounded-full p-5 mx-2"
-                                disabled={!playerState.isReady}
-                            >
-                                {playerState.isReady && playerState.isPlaying && <PauseIcon className="md:size-6 " />}
-                                {playerState.isReady && !playerState.isPlaying && <PlayIcon className="md:size-6 " />}
-                                {!playerState.isReady && <LoaderCircleIcon className="md:size-6 animate-spin" />}
-                            </Button>
-
-                            <Button size={'icon'} variant={'ghost'} onClick={seekForward}>
-                                <FastForwardIcon className="rotate-0" />
-                            </Button>
-                            <Button size={'icon'} variant={'ghost'} onClick={playNext}>
-                                <SkipForward className="size-5" />
-                            </Button>
-                        </div>
-                        <Button size={'icon'} variant={'link'} onClick={toggleRepeat}>
-                            <RepeatIcon
-                                className={cn(playerState.isRepeat ? 'text-primary' : 'text-muted-foreground')}
-                            />
-                        </Button>
-                    </div>
-
-                    <div className="text-xs text-muted-foreground/75 text-center">
-                        Playing <b>{playerState.currentSongIndex + 1}</b> of{' '}
-                        <b>
-                            {playlist.length} {playlist.length === 1 ? 'song' : 'songs'}
-                        </b>{' '}
-                        in the playlist
-                    </div>
+                    <ProgressBar />
+                    <PlaybackControls />
+                    <PlaylistStatus currentIndex={playerState.currentSongIndex} totalSongs={playlist.length} />
                 </div>
             </Card>
 
