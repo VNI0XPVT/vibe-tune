@@ -60,10 +60,12 @@ const useMusicPlayer = () => {
     const playSong = (song: Song) => updateState({ currentSong: song, progress: 0, isPlaying: true });
     const toggleShuffle = () => updateState({ isShuffle: !state.isShuffle });
     const toggleRepeat = () => updateState({ isRepeat: !state.isRepeat });
+    const seekForward = () => (audioRef.current!.currentTime += 10);
+    const seekBackward = () => (audioRef.current!.currentTime -= 10);
 
     const handleSeek = (value: number) => {
         if (!audioRef.current) return;
-        updateState({ progress: value });
+        // updateState({ progress: value });
         audioRef.current.currentTime = value;
     };
 
@@ -114,6 +116,8 @@ const useMusicPlayer = () => {
         playPrevious,
         addToPlaylist,
         removeFromPlaylist,
+        seekForward,
+        seekBackward,
     };
 };
 

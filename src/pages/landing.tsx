@@ -35,7 +35,7 @@ const LandingPage = () => {
 
                 <div className="z-10 flex items-center justify-center mb-8">
                     <AnimatedGradientText>
-                        🎉 <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300" />{' '}
+                        🎉 <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300 " />{' '}
                         <span
                             className={cn(
                                 `inline animate-gradient gradient bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`
@@ -43,18 +43,13 @@ const LandingPage = () => {
                         >
                             Introducing Melody
                         </span>
-                        {/* <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" /> */}
                     </AnimatedGradientText>
                 </div>
-
-                {/* <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                    Discover and Enjoy <span className="text-gradient">Music</span>
-                </h1>  */}
                 <h1 className="text-3xl md:text-7xl font-bold mb-4">
                     <span className="text-gradient">Melody</span> Player
                 </h1>
 
-                <p className="text-muted-foreground max-w-2xl text-lg md:text-2xl">
+                <p className="text-muted-foreground max-w-2xl text-base md:text-2xl">
                     Melody is the ultimate music player app that lets you stream, download, and discover new music with
                     ease.
                 </p>
@@ -62,14 +57,14 @@ const LandingPage = () => {
                 <div className="flex gap-x-6 gap-y-4 flex-col md:flex-row max-w-lg mx-auto mt-20">
                     <Link
                         to={'/home'}
-                        className="gradient inline-block text-white py-2.5 px-10 rounded-full font-semibold w-full"
+                        className="text-sm md:text-base gradient inline-block text-white py-2.5 px-10 rounded-full font-semibold w-full"
                     >
                         <Rocket className="size-5 inline mr-2" /> Get Started!
                     </Link>
 
                     <Link
                         to={'/home'}
-                        className="bg-muted inline-block text-white py-2.5 px-10 rounded-full font-semibold w-full text-foreground/75 border border-muted-foreground/25"
+                        className="text-sm md:text-base bg-muted inline-block text-white py-2.5 px-10 rounded-full font-semibold w-full text-foreground/75 border border-muted-foreground/25"
                     >
                         <Github className="size-5 inline mr-2" /> View On Github
                     </Link>

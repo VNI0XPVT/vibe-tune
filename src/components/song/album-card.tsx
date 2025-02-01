@@ -21,10 +21,10 @@ const AlbumCard = ({ album }: Props) => {
                 effect="blur"
             />
 
-            <h4 className="mt-3  text-sm max-w-[6rem] text-ellipsis line-clamp-1 group-hover:text-primary">
+            <h4 className="mt-1 md:mt-3  text-sm max-w-[6rem] text-ellipsis line-clamp-1 group-hover:text-primary">
                 {album.name}
             </h4>
-            <p className="text-xs text-muted-foreground">{album.songs} songs</p>
+            <p className="text-xs text-muted-foreground max-md:-mt-0.5">{album.songs} songs</p>
         </Link>
     );
 };

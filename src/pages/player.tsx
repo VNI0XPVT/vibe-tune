@@ -15,14 +15,25 @@ import { Button } from '../components/ui/button';
 import { Slider } from '../components/ui/slider';
 import { findAlbumById } from '../utils/song';
 import SongList from '../components/song/song-list';
-import { formatDuration } from '../lib/utils';
+import { cn, formatDuration } from '../lib/utils';
 import AartistCard from '../components/song/artist-card';
 import { useMusicPlayerContext } from '../context/audio-provider';
 import { Link } from 'react-router';
 
 const Player = () => {
-    const { playerState, handleSeek, togglePlayPause, playNext, playPrevious, addToPlaylist, removeFromPlaylist } =
-        useMusicPlayerContext();
+    const {
+        playerState,
+        handleSeek,
+        togglePlayPause,
+        playNext,
+        playPrevious,
+        addToPlaylist,
+        removeFromPlaylist,
+        seekForward,
+        seekBackward,
+        toggleShuffle,
+        toggleRepeat,
+    } = useMusicPlayerContext();
     const { currentSong: song, playlist } = playerState;
 
     if (!song) return <p></p>;
@@ -34,8 +45,6 @@ const Player = () => {
 
     return (
         <div className="grid gap-6 md:gap-10">
-            {/* <h2 className="text-2xl font-semibold text-center mt-6">Player</h2> */}
-
             <Card className="flex flex-col md:flex-row overflow-hidden mx-auto p-6 md:p-6 gap-10 w-full mt-6">
                 <div className=" md:h-56">
                     <img
@@ -89,45 +98,45 @@ const Player = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-between items-center gap-6">
-                        <ShuffleIcon className="size-4 text-muted-foreground" />
-                        <div className="flex items-center justify-center gap-4 md:gap-8">
+                    <div className="flex justify-between items-center gap-1">
+                        <Button size={'icon'} variant={'link'} onClick={toggleShuffle}>
+                            <ShuffleIcon
+                                className={cn(playerState.isShuffle ? 'text-primary' : 'text-muted-foreground')}
+                            />
+                        </Button>
+                        <div className="flex items-center justify-center gap-1 md:gap-8">
                             <Button size={'icon'} variant={'ghost'} onClick={playPrevious}>
                                 <SkipBack className="" />
                             </Button>
 
-                            <Button size={'icon'} variant={'ghost'} onClick={playPrevious} className="max-md:hidden">
+                            <Button size={'icon'} variant={'ghost'} onClick={seekBackward}>
                                 <FastForwardIcon className="rotate-180" />
                             </Button>
 
-                            {playerState.isReady && (
-                                <Button
-                                    size={'icon'}
-                                    variant={'default'}
-                                    onClick={togglePlayPause}
-                                    className="rounded-full p-5"
-                                >
-                                    {playerState.isPlaying ? (
-                                        <PauseIcon className="md:size-6 " />
-                                    ) : (
-                                        <PlayIcon className="md:size-6 " />
-                                    )}
-                                </Button>
-                            )}
+                            <Button
+                                size={'icon'}
+                                variant={'default'}
+                                onClick={togglePlayPause}
+                                className="rounded-full p-5 mx-2"
+                                disabled={!playerState.isReady}
+                            >
+                                {playerState.isReady && playerState.isPlaying && <PauseIcon className="md:size-6 " />}
+                                {playerState.isReady && !playerState.isPlaying && <PlayIcon className="md:size-6 " />}
+                                {!playerState.isReady && <LoaderCircleIcon className="md:size-6 animate-spin" />}
+                            </Button>
 
-                            {!playerState.isReady && (
-                                <Button size={'icon'} variant={'default'} className="rounded-full p-5" disabled>
-                                    <LoaderCircleIcon className="animate-spin" />
-                                </Button>
-                            )}
-                            <Button size={'icon'} variant={'ghost'} onClick={playPrevious} className="max-md:hidden">
+                            <Button size={'icon'} variant={'ghost'} onClick={seekForward}>
                                 <FastForwardIcon className="rotate-0" />
                             </Button>
                             <Button size={'icon'} variant={'ghost'} onClick={playNext}>
                                 <SkipForward className="size-5" />
                             </Button>
                         </div>
-                        <RepeatIcon className="size-4 text-muted-foreground" />
+                        <Button size={'icon'} variant={'link'} onClick={toggleRepeat}>
+                            <RepeatIcon
+                                className={cn(playerState.isRepeat ? 'text-primary' : 'text-muted-foreground')}
+                            />
+                        </Button>
                     </div>
 
                     <div className="text-xs text-muted-foreground/75 text-center">

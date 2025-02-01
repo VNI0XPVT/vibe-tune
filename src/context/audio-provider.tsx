@@ -46,8 +46,8 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             navigator.mediaSession.setActionHandler('pause', _ => updatePlayerState({ isPlaying: false }));
             navigator.mediaSession.setActionHandler('previoustrack', musicPlayer.playPrevious);
             navigator.mediaSession.setActionHandler('nexttrack', musicPlayer.playNext);
-            navigator.mediaSession.setActionHandler('seekforward', _ => (audioRef.current!.currentTime += 10));
-            navigator.mediaSession.setActionHandler('seekbackward', _ => (audioRef.current!.currentTime -= 10));
+            navigator.mediaSession.setActionHandler('seekforward', _ => musicPlayer.seekForward);
+            navigator.mediaSession.setActionHandler('seekbackward', _ => musicPlayer.seekBackward);
             navigator.mediaSession.setActionHandler('seekto', (e: any) => (audioRef.current!.currentTime = e.seekTime));
         }
     }, [playerState.currentSong]);
