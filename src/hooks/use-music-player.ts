@@ -65,23 +65,21 @@ const useMusicPlayer = () => {
 
     const handleSeek = (value: number) => {
         if (!audioRef.current) return;
-        // updateState({ progress: value });
+        updateState({ progress: value });
         audioRef.current.currentTime = value;
     };
 
     const playNext = () => {
-        const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong?.id);
         let nextIndex;
 
         if (state.isShuffle) nextIndex = getRandomIndex(0, state.playlist.length);
-        else nextIndex = (currentIndex + 1) % state.playlist.length;
+        else nextIndex = (state.currentSongIndex + 1) % state.playlist.length;
 
         playSong(state.playlist[nextIndex]);
     };
 
     const playPrevious = () => {
-        const currentIndex = state.playlist.findIndex(song => song.id === state.currentSong?.id);
-        const prevIndex = (currentIndex - 1 + state.playlist.length) % state.playlist.length;
+        const prevIndex = (state.currentSongIndex - 1 + state.playlist.length) % state.playlist.length;
 
         playSong(state.playlist[prevIndex]);
     };

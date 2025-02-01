@@ -7,8 +7,9 @@ import { useMusicPlayerContext } from '../context/audio-provider';
 import { Link } from 'react-router';
 import ProgressBar from '@/components/progress-bar';
 import PlaybackControls from '@/components/playback-controls';
+import { memo } from 'react';
 
-const PlaylistStatus = ({ currentIndex = 0, totalSongs = 0 }) => (
+const PlaylistStatus = memo(({ currentIndex, totalSongs }: { currentIndex: number; totalSongs: number }) => (
     <div className="text-xs text-muted-foreground/75 text-center">
         Playing <b>{currentIndex + 1}</b> of{' '}
         <b>
@@ -16,7 +17,7 @@ const PlaylistStatus = ({ currentIndex = 0, totalSongs = 0 }) => (
         </b>{' '}
         in the playlist
     </div>
-);
+));
 
 const Player = () => {
     const { playerState, addToPlaylist, removeFromPlaylist } = useMusicPlayerContext();

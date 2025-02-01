@@ -17,7 +17,8 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
 
     const handleTimeUpdate = (e: AudioEvent) => {
-        updatePlayerState({ progress: e.currentTarget.currentTime });
+        const currentTime = +e.currentTarget.currentTime.toFixed(0);
+        if (currentTime !== playerState.progress) updatePlayerState({ progress: currentTime });
     };
 
     const handlePause = () => updatePlayerState({ isPlaying: false });
