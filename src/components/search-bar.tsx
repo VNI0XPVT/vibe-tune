@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 type Props = {
     onChange?: (e: string) => void;
@@ -26,4 +26,4 @@ const SearchBar = (props: Props) => {
     );
 };
 
-export default SearchBar;
+export default memo(SearchBar);

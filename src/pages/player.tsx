@@ -7,7 +7,7 @@ import { useMusicPlayerContext } from '../context/audio-provider';
 import { Link } from 'react-router';
 import ProgressBar from '@/components/progress-bar';
 import PlaybackControls from '@/components/playback-controls';
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 
 const PlaylistStatus = memo(({ currentIndex, totalSongs }: { currentIndex: number; totalSongs: number }) => (
     <div className="text-xs text-muted-foreground/75 text-center">
@@ -21,14 +21,15 @@ const PlaylistStatus = memo(({ currentIndex, totalSongs }: { currentIndex: numbe
 
 const Player = () => {
     const { playerState, addToPlaylist, removeFromPlaylist } = useMusicPlayerContext();
-    const { currentSong: song, playlist } = playerState;
+    const { currentSong, playlist } = playerState;
 
-    if (!song) return <p></p>;
-    const album = findAlbumById(song?.album.id);
-
-    if (!album) return <p></p>;
+    const song = currentSong!;
+    const album = findAlbumById(song.album.id)!;
 
     const isInPlaylist = playlist.some(s => s.id === song.id);
+
+    // const count = useRef(0);
+    // console.log('Rendering Player:', count.current++);
 
     return (
         <div className="grid gap-6 md:gap-10">

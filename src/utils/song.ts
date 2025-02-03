@@ -75,7 +75,19 @@ const findArtistById = (id: string) => {
     };
 };
 
+const searchSongs = (value: string) => {
+    const query = value.trim().toLowerCase();
+    if (!query) return [];
+
+    const results = _.chain(songsData)
+        .filter(song => song.name.toLowerCase().includes(query) || song.album.name.toLowerCase().includes(query))
+        .slice(0, 14)
+        .value();
+
+    return results;
+};
+
 const albums = findAlbums();
 const songs = findSongs();
 
-export { albums, songs, findAlbums, findSongs, findAlbumById, findArtistById, findArtists };
+export { albums, songs, findAlbums, searchSongs, findSongs, findAlbumById, findArtistById, findArtists };
