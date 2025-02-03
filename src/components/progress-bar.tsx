@@ -1,26 +1,29 @@
-import { useMusicPlayerContext } from '@/context/audio-provider';
-import { formatDuration } from '@/lib/utils';
+import { memo } from 'react';
 import { Slider } from './ui/slider';
+import { formatDuration } from '@/lib/utils';
 
-const ProgressBar = () => {
-    const { playerState, handleSeek } = useMusicPlayerContext();
-    const { currentSong: song } = playerState;
+interface Props {
+    curretProgress: number;
+    totalDuration: number;
+    handleSeek: (value: number) => void;
+}
 
+const ProgressBar = ({ curretProgress, handleSeek, totalDuration }: Props) => {
     return (
         <div>
             <Slider
-                value={[playerState.progress]}
-                max={song!.duration}
+                value={[curretProgress]}
+                max={totalDuration}
                 step={1}
                 onValueChange={value => handleSeek(value[0])}
             />
 
             <div className="flex text-xs md:text-sm justify-between items-center mt-1.5 md:mt-2 text-muted-foreground">
-                <span>{formatDuration(playerState.progress)}</span>
-                <span>{formatDuration(song!.duration)}</span>
+                <span>{formatDuration(curretProgress)}</span>
+                <span>{formatDuration(totalDuration)}</span>
             </div>
         </div>
     );
 };
 
-export default ProgressBar;
+export default memo(ProgressBar);

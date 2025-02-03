@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { getRandomIndex } from '../lib/utils';
 import { songs } from '../utils/song';
 import toast from 'react-hot-toast';
@@ -38,8 +38,6 @@ const useMusicPlayer = () => {
     const audioRef = useRef<HTMLAudioElement>(new Audio());
     const audio = audioRef.current;
 
-    useEffect(() => setLocalState(state), [state]);
-
     const updateState = (updates: Partial<PlayerState>) => {
         setState(prev => ({ ...prev, ...updates }));
         setLocalState(state);
@@ -57,11 +55,12 @@ const useMusicPlayer = () => {
         updateState({ isPlaying: !state.isPlaying });
     };
 
-    const playSong = (song: Song) => updateState({ currentSong: song, progress: 0, isPlaying: true });
     const toggleShuffle = () => updateState({ isShuffle: !state.isShuffle });
     const toggleRepeat = () => updateState({ isRepeat: !state.isRepeat });
     const seekForward = () => (audioRef.current!.currentTime += 10);
     const seekBackward = () => (audioRef.current!.currentTime -= 10);
+
+    const playSong = useCallback((song: Song) => updateState({ currentSong: song, progress: 0, isPlaying: true }), []);
 
     const handleSeek = (value: number) => {
         if (!audioRef.current) return;

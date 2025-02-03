@@ -20,16 +20,13 @@ const PlaylistStatus = memo(({ currentIndex, totalSongs }: { currentIndex: numbe
 ));
 
 const Player = () => {
-    const { playerState, addToPlaylist, removeFromPlaylist } = useMusicPlayerContext();
+    const { playerState, addToPlaylist, removeFromPlaylist, handleSeek } = useMusicPlayerContext();
     const { currentSong, playlist } = playerState;
 
     const song = currentSong!;
     const album = findAlbumById(song.album.id)!;
 
     const isInPlaylist = playlist.some(s => s.id === song.id);
-
-    // const count = useRef(0);
-    // console.log('Rendering Player:', count.current++);
 
     return (
         <div className="grid gap-6 md:gap-10">
@@ -72,7 +69,12 @@ const Player = () => {
                         </div>
                     </div>
 
-                    <ProgressBar />
+                    {/* <ProgressBar /> */}
+                    <ProgressBar
+                        handleSeek={handleSeek}
+                        curretProgress={playerState.progress}
+                        totalDuration={playerState.currentSong!.duration}
+                    />
                     <PlaybackControls />
                     <PlaylistStatus currentIndex={playerState.currentSongIndex} totalSongs={playlist.length} />
                 </div>
