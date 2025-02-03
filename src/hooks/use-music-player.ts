@@ -55,8 +55,14 @@ const useMusicPlayer = () => {
         updateState({ isPlaying: !state.isPlaying });
     };
 
-    const toggleShuffle = () => updateState({ isShuffle: !state.isShuffle });
-    const toggleRepeat = () => updateState({ isRepeat: !state.isRepeat });
+    const toggleShuffle = () => {
+        updateState({ isShuffle: !state.isShuffle });
+        toast.success('Shuffle mode ' + (state.isShuffle ? 'enabled!' : 'disabled!'));
+    };
+    const toggleRepeat = () => {
+        updateState({ isRepeat: !state.isRepeat });
+        toast.success('Repeat mode ' + (state.isRepeat ? 'enabled!' : 'disabled!'));
+    };
     const seekForward = () => (audioRef.current!.currentTime += 10);
     const seekBackward = () => (audioRef.current!.currentTime -= 10);
 

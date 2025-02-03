@@ -10,9 +10,14 @@ const Home = () => {
 
     return (
         <div className="grid gap-6">
-            {/* <h2 className="text-2xl md:hidden md:text-3xl font-bold text-foreground/90">
-                Good Afternoon <span className="text-gradient">User</span>
-            </h2> */}
+            <div>
+                <h2 className="text-2xl mt-5 font-[Raleway] md:text-4xl font-semibold text-foreground/90">
+                    <span className="text-gradient">Hi there!</span>
+                </h2>
+                <p className="mb-2 text-muted-foreground font-medium md:text-xl font-[Raleway]">
+                    What are you in the mood to listen to today?
+                </p>
+            </div>
 
             <Card className="bg-gradient">
                 <CardHeader>

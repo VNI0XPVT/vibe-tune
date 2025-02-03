@@ -16,7 +16,7 @@ const AartistCard = ({ artist }: Props) => {
                 effect="blur"
             />
 
-            <h4 className="mt-2 text-sm text-ellipsis line-clamp-1 group-hover:text-primary transition-colors">
+            <h4 className="mt-2 text-sm text-ellipsis line-clamp-1 group-hover:text-primary transition-colors font-semibold">
                 {artist.name}
             </h4>
             <p className="text-xs text-muted-foreground">Artist</p>

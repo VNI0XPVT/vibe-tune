@@ -36,7 +36,7 @@ const findAlbumById = (id: string) => {
     };
 };
 
-const findSongs = (count = 25) => {
+const findSongs = (count = 75) => {
     return _.sampleSize(songsData, count);
 };
 
