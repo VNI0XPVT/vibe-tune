@@ -7,7 +7,7 @@ import { useMusicPlayerContext } from '../context/audio-provider';
 import { Link } from 'react-router';
 import ProgressBar from '@/components/progress-bar';
 import PlaybackControls from '@/components/playback-controls';
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 
 const PlaylistStatus = memo(({ currentIndex, totalSongs }: { currentIndex: number; totalSongs: number }) => (
     <div className="text-xs text-muted-foreground/75 text-center">

@@ -1,4 +1,4 @@
-import { memo, useDeferredValue, useState } from 'react';
+import { memo, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import SongCard from '../components/song/song-card';
 import SearchBar from '../components/search-bar';
