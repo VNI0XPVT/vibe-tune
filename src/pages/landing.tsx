@@ -41,17 +41,16 @@ const LandingPage = () => {
                                 `inline animate-gradient gradient bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`
                             )}
                         >
-                            Introducing Melody
+                            Introducing VibeTune
                         </span>
                     </AnimatedGradientText>
                 </div>
                 <h1 className="text-3xl md:text-7xl font-bold mb-4">
-                    <span className="text-gradient">Melody</span> Player
+                    <span className="text-gradient">VibeTune</span> Music
                 </h1>
 
                 <p className="text-muted-foreground max-w-2xl text-base md:text-2xl">
-                    Melody is the ultimate music player app that lets you stream, download, and discover new music with
-                    ease.
+                    VibeTune is the ultimate music player app that lets you stream and discover new music with ease.
                 </p>
 
                 <div className="flex gap-x-6 gap-y-4 flex-col md:flex-row max-w-lg mx-auto mt-20">
@@ -71,9 +70,9 @@ const LandingPage = () => {
                 </div>
             </div>
 
-            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-muted-foreground w-full text-center">
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs md:text-sm font-semibold text-muted-foreground w-full text-center">
                 Made by{' '}
-                <a href="http://" target="_blank" className="underline">
+                <a href="https://github.com/devxprite/" target="_blank" className="underline">
                     @devxprite
                 </a>
             </p>
