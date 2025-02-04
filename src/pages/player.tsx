@@ -11,8 +11,8 @@ import { memo } from 'react';
 
 const PlaylistStatus = memo(({ currentIndex, totalSongs }: { currentIndex: number; totalSongs: number }) => (
     <div className="text-xs text-muted-foreground/75 text-center">
-        Playing <b>{currentIndex + 1}</b> of{' '}
-        <b>
+        Playing <b className="font-['Open_Sans']">{currentIndex + 1}</b> of{' '}
+        <b className="font-['Open_Sans']">
             {totalSongs} {totalSongs === 1 ? 'song' : 'songs'}
         </b>{' '}
         in the playlist

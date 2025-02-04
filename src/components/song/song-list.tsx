@@ -48,7 +48,11 @@ const SongList = ({ song, number, showAlbum = false }: Props) => {
         </p>
     );
 
-    const Duration = () => <p className="text-xs md:text-sm pr-1">{formatDuration(song.duration)}</p>;
+    const Duration = () => (
+        <p role="button" className="text-xs md:text-sm pr-1 font-['Open_Sans'] ">
+            {formatDuration(song.duration)}
+        </p>
+    );
 
     const SongWithoutAlbum = (
         <>

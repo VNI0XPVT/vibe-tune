@@ -19,8 +19,8 @@ const ProgressBar = ({ curretProgress, handleSeek, totalDuration }: Props) => {
             />
 
             <div className="flex text-xs md:text-sm justify-between items-center mt-1.5 md:mt-2 text-muted-foreground">
-                <span>{formatDuration(curretProgress)}</span>
-                <span>{formatDuration(totalDuration)}</span>
+                <span className="font-['Open_Sans']">{formatDuration(curretProgress)}</span>
+                <span className="font-['Open_Sans']">{formatDuration(totalDuration)}</span>
             </div>
         </div>
     );

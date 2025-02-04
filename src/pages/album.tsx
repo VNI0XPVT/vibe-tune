@@ -33,7 +33,10 @@ const Album = () => {
                         <b>{album.language}</b>
                     </p>
                     <p className="text-sm text-muted-foreground">
-                        <b>Release:</b> {album.releaseDate}
+                        <b>Release:</b>{' '}
+                        <span className="font-['Open_Sans']">
+                            {new Date(album.releaseDate!).toLocaleDateString('en-IN', { dateStyle: 'long' })}
+                        </span>
                     </p>
                     <p className="text-sm text-muted-foreground">
                         <b>Artists: </b>
@@ -59,7 +62,7 @@ const Album = () => {
                     <CardTitle>Track List</CardTitle>
                     <CardDescription>
                         {album.songs.length} {album.songs.length === 1 ? 'track' : 'tracks'} -{' '}
-                        {formatDuration(album.duration)} minutes
+                        <span className="font-['Open_Sans']">{formatDuration(album.duration)} </span> minutes
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
