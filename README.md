@@ -20,9 +20,7 @@ Experience Vibetune live: [https://vibe-tune.vercel.app/](https://vibe-tune.verc
 - 📱 Fully responsive design
 - 🎨 Modern UI with smooth animations
 - 📚 Album and playlist management
-- ⚡ Fast performance with React Vite
 - 🛠 Type-safe development with TypeScript
-- 🎨 Utility-first CSS with Tailwind
 
 ## 🛠 Technologies Used
 
