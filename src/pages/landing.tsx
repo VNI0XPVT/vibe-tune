@@ -61,12 +61,13 @@ const LandingPage = () => {
                         <Rocket className="size-5 inline mr-2" /> Get Started!
                     </Link>
 
-                    <Link
-                        to={'/home'}
+                    <a
+                        href={'http://github.com/devxprite/vibetune'}
+                        target="_blank"
                         className="text-sm md:text-base bg-muted inline-block text-white py-2.5 px-10 rounded-full font-semibold w-full text-foreground/75 border border-muted-foreground/25"
                     >
                         <Github className="size-5 inline mr-2" /> View On Github
-                    </Link>
+                    </a>
                 </div>
             </div>
 
