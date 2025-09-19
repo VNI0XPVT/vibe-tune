@@ -23,7 +23,7 @@ const LandingPage = () => {
                         'group relative z-10 w-fit mx-auto rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800 mb-6'
                     }
                 >
-                    <a href="https://github.com/devXprite/Chat-World/" target="_blank">
+                    <a href="https://github.com/VNI0X/" target="_blank">
                         <AnimatedShinyText className="inline-flex items-center justify-center px-3 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400  text-sm">
                             <span>
                                 <Github className="size-4 mr-1 inline" />
@@ -41,12 +41,12 @@ const LandingPage = () => {
                                 `inline animate-gradient gradient bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`
                             )}
                         >
-                            Introducing VibeTune
+                            Introducing Nikku Music
                         </span>
                     </AnimatedGradientText>
                 </div>
                 <h1 className="text-3xl md:text-7xl font-bold mb-4">
-                    <span className="text-gradient">VibeTune</span> Music
+                    <span className="text-gradient">NikkuMusic</span> Music
                 </h1>
 
                 <p className="text-muted-foreground max-w-2xl text-base md:text-2xl">
@@ -62,7 +62,7 @@ const LandingPage = () => {
                     </Link>
 
                     <a
-                        href={'http://github.com/devxprite/vibetune'}
+                        href={'http://github.com/VNI0X'}
                         target="_blank"
                         className="text-sm md:text-base bg-muted inline-block text-white py-2.5 px-10 rounded-full font-semibold w-full text-foreground/75 border border-muted-foreground/25"
                     >
@@ -73,8 +73,8 @@ const LandingPage = () => {
 
             <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs md:text-sm font-semibold text-muted-foreground w-full text-center">
                 Made by{' '}
-                <a href="https://github.com/devxprite/" target="_blank" className="underline">
-                    @devxprite
+                <a href="https://github.com/VNI0X/" target="_blank" className="underline">
+                    @VNI0X
                 </a>
             </p>
         </div>
